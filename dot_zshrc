@@ -1,0 +1,82 @@
+# Disable automatic updates entirely
+zstyle ':omz:update' mode disabled
+
+# Which plugins would you like to load?
+# Add wisely, as too many plugins slow down shell startup.
+# Note that zsh-syntax-highlighting must be the last plugin sourced.
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+
+# Run Oh My Zsh
+source $ZSH/oh-my-zsh.sh
+
+# A collection of LS_COLORS definitions
+# https://github.com/trapd00r/LS_COLORS
+source $HOME/.lscolors/lscolors.sh
+
+# Display random quotation
+fortune -s | cowsay
+
+# Start the ssh-agent
+printf '%*s\n' 50 '' | tr ' ' '-'
+eval "$(ssh-agent -s)" 
+printf '%*s\n' 50 '' | tr ' ' '-'
+ssh-add ~/.ssh/id_ed25519_work
+ssh-add ~/.ssh/id_ed25519_personal
+ssh-add ~/.ssh/id_rsa
+
+# Simple Python version management
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+# Node version manager
+source "$NVM_DIR/nvm.sh"
+source "$NVM_DIR/bash_completion"
+
+# Aliases
+alias ..="cd .."
+alias open="xdg-open"
+alias rm="rm --preserve-root=all --verbose"
+alias mkdir="mkdir --parents --mode=755 --verbose"
+alias ll="ls --all --color=always --classify=always --format=long --group-directories-first --human-readable --sort=name --time=mtime --time-style=long-iso"
+alias zshconfig="kate ~/.zshrc"
+alias ohmyzsh="kate ~/.oh-my-zsh"
+
+# Git configuration
+# https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key
+git config --global user.name "$GIT_AUTHOR_NAME"
+git config --global user.email "$GIT_AUTHOR_EMAIL"
+git config --global user.signingkey '4536B4D96D6373D0'
+git config --global commit.gpgsign true
+git config --global tag.gpgSign true
+git config --global gpg.format openpgp
+git config --global init.defaultBranch 'main'
+git config --global core.editor 'vim'
+
+# Good-lookin' diffs. Actually… nah… The best-lookin' diffs.
+git config --global core.pager "diff-so-fancy | less --tabs=4 -RF"
+git config --global interactive.diffFilter "diff-so-fancy --patch"
+git config --global color.ui true
+git config --global color.diff-highlight.oldNormal    "red bold"
+git config --global color.diff-highlight.oldHighlight "red bold 52"
+git config --global color.diff-highlight.newNormal    "green bold"
+git config --global color.diff-highlight.newHighlight "green bold 22"
+git config --global color.diff.meta       "11"
+git config --global color.diff.frag       "magenta bold"
+git config --global color.diff.func       "146 bold"
+git config --global color.diff.commit     "yellow bold"
+git config --global color.diff.old        "red bold"
+git config --global color.diff.new        "green bold"
+git config --global color.diff.whitespace "red reverse"
+
+# Define safe directories
+git config --global --unset-all safe.directory
+git config --global --add safe.directory $NVM_DIR
+
+# Clear JetBrains lock state
+find "$HOME/.var/app/com.jetbrains.PhpStorm/config" -name ".lock" -delete
+find "$HOME/.var/app/com.jetbrains.IntelliJ-IDEA-Ultimate/config" -name ".lock" -delete
+
+# Display system info
+printf '%*s\n' 50 '' | tr ' ' '-'
+fastfetch --logo none --pipe --percent-type 3 --structure "OS:Host:Kernel:Uptime:Packages:DE:WM:Shell:Terminal:CPU:GPU:Memory:Disk:Battery"
+printf '%*s\n' 50 '' | tr ' ' '-'
