@@ -1,0 +1,84 @@
+### Install required packages
+
+```bash
+sudo pacman -S cowsay diff-so-fancy fastfetch fortune-mod git gnupg kitty less nvm openssh pyenv ttf-ibm-plex vim zsh
+```
+
+### A pyenv plugin to manage virtualenv (a.k.a. python-virtualenv)
+
+```bash
+git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+```
+
+### Generating a new SSH key and adding it to the ssh-agent
+
+https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+
+```bash
+ssh-keygen -t ed25519 -C "your_email@example.com" -f ~/.ssh/id_ed25519 -N ""
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+
+### Adding a new SSH key to your account
+
+https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?tool=webui
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+### Generating a new GPG key
+
+https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key
+
+```bash
+gpg --batch --generate-key <<EOF
+Key-Type: RSA
+Key-Length: 4096
+Subkey-Type: RSA
+Subkey-Length: 4096
+Name-Real: Justin Bull
+Name-Email: bull.justin@gmail.com
+Expire-Date: 0
+%no-protection
+%commit
+EOF
+```
+
+### Adding a GPG key to your GitHub account
+
+```bash
+export GPGKEY="$(gpg --list-secret-keys --keyid-format=long --with-colons | awk -F: '/^sec:/ {print $5}')"
+gpg --armor --export "$GPGKEY"
+```
+
+### Locales are used by glibc and other locale-aware programs or libraries for rendering text, correctly displaying regional monetary values, time and date formats.
+
+```bash
+echo "en_US.UTF-8 UTF-8" | sudo tee /etc/locale.gen
+sudo locale-gen
+```
+
+### A collection of LS_COLORS definitions
+
+```bash
+git clone https://github.com/trapd00r/LS_COLORS.git $HOME/.lscolors
+```
+
+### The Ultimate vimrc
+
+```bash
+git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
+sh ~/.vim_runtime/install_awesome_vimrc.sh
+```
+
+### Oh My Zsh is an open source, community-driven framework for managing your zsh configuration
+
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-autosuggestions.git $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+chsh -s /usr/bin/zsh
+exec zsh
+```
