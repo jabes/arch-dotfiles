@@ -48,6 +48,8 @@ EOF
 
 ### Adding a GPG key to your GitHub account
 
+https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account
+
 ```bash
 export GPGKEY="$(gpg --list-secret-keys --keyid-format=long --with-colons | awk -F: '/^sec:/ {print $5}')"
 gpg --armor --export "$GPGKEY"
