@@ -84,3 +84,12 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.oh-my-
 chsh -s /usr/bin/zsh
 exec zsh
 ```
+
+### Node version manager
+
+```bash
+nvm install --lts
+nvm use --lts
+npm install -g gtop
+npm install -g npm-check-updates
+```
