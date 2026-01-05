@@ -15,22 +15,23 @@ source $HOME/.lscolors/lscolors.sh
 
 # Display random quotation
 fortune -s | cowsay
+printf '%*s\n' 50 '' | tr ' ' '-'
 
-# Start the ssh-agent
-printf '%*s\n' 50 '' | tr ' ' '-'
-eval "$(ssh-agent -s)" 
-printf '%*s\n' 50 '' | tr ' ' '-'
-ssh-add ~/.ssh/id_ed25519_work
-ssh-add ~/.ssh/id_ed25519_personal
-ssh-add ~/.ssh/id_rsa
+# Start ssh-agent if not running
+if [ -n "$SSH_AUTH_SOCK" ]
+then echo "SSH agent already running: $SSH_AUTH_SOCK"
+else eval "$(ssh-agent -s)"
+fi
+
+# Add identities to the authentication agent
+find "$HOME/.ssh" -type f -name 'id_*' ! -name '*.pub' -exec ssh-add {} \;
 
 # Simple Python version management
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 # Node version manager
-source "$NVM_DIR/nvm.sh"
-source "$NVM_DIR/bash_completion"
+source "/usr/share/nvm/init-nvm.sh"
 
 # Aliases
 alias ..="cd .."
@@ -45,7 +46,7 @@ alias ohmyzsh="kate ~/.oh-my-zsh"
 # https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key
 git config --global user.name "$GIT_AUTHOR_NAME"
 git config --global user.email "$GIT_AUTHOR_EMAIL"
-git config --global user.signingkey '4536B4D96D6373D0'
+git config --global user.signingkey "$GPGKEY"
 git config --global commit.gpgsign true
 git config --global tag.gpgSign true
 git config --global gpg.format openpgp
@@ -73,8 +74,7 @@ git config --global --unset-all safe.directory
 git config --global --add safe.directory $NVM_DIR
 
 # Clear JetBrains lock state
-find "$HOME/.var/app/com.jetbrains.PhpStorm/config" -name ".lock" -delete
-find "$HOME/.var/app/com.jetbrains.IntelliJ-IDEA-Ultimate/config" -name ".lock" -delete
+find "$HOME/.var/app" -name ".lock" -delete
 
 # Display system info
 printf '%*s\n' 50 '' | tr ' ' '-'
