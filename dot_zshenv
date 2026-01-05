@@ -64,3 +64,12 @@ export TERM="xterm-kitty"
 # primarily for digitally signing data like Git commits to verify identity/integrity or encrypting files
 export GPGKEY="$(gpg --list-secret-keys --keyid-format=long --with-colons | awk -F: '/^sec:/ {print $5}')"
 
+# VA-API implemention using NVIDIA's NVDEC
+# https://github.com/elFarto/nvidia-vaapi-driver?tab=readme-ov-file#nvidia-vaapi-driver
+export NVD_LOG=1
+export NVD_BACKEND=direct
+export MOZ_ENABLE_WAYLAND=1
+export MOZ_DISABLE_RDD_SANDBOX=1
+export LIBVA_DRIVER_NAME=nvidia
+export LIBVA_MESSAGING_LEVEL=1
+
