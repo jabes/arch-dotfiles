@@ -15,9 +15,11 @@ git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-vi
 https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
 ```bash
-ssh-keygen -t ed25519 -C "your_email@example.com" -f ~/.ssh/id_ed25519 -N ""
+ssh-keygen -t ed25519 -C "bull.ustin@gmail.com" -f ~/.ssh/id_ed25519_personal -N ""
+ssh-keygen -t ed25519 -C "justin.bull@base1.com" -f ~/.ssh/id_ed25519_base1 -N ""
 eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
+ssh-add ~/.ssh/id_ed25519_personal
+ssh-add ~/.ssh/id_ed25519_base1
 ```
 
 ### Adding a new SSH key to your account
@@ -25,7 +27,11 @@ ssh-add ~/.ssh/id_ed25519
 https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?tool=webui
 
 ```bash
-cat ~/.ssh/id_ed25519.pub
+echo && printf '%*s\n' 64 '' | tr ' ' '+' && echo
+cat ~/.ssh/id_ed25519_personal.pub
+echo && printf '%*s\n' 64 '' | tr ' ' '+' && echo
+cat ~/.ssh/id_ed25519_base1.pub
+echo && printf '%*s\n' 64 '' | tr ' ' '+' && echo
 ```
 
 ### Generating a new GPG key
@@ -46,13 +52,30 @@ Expire-Date: 0
 EOF
 ```
 
+```bash
+gpg --batch --generate-key <<EOF
+Key-Type: RSA
+Key-Length: 4096
+Subkey-Type: RSA
+Subkey-Length: 4096
+Name-Real: Justin Bull
+Name-Email: justin.bull@base1.com
+Expire-Date: 0
+%no-protection
+%commit
+EOF
+```
+
 ### Adding a GPG key to your GitHub account
 
 https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account
 
 ```bash
-export GPGKEY="$(gpg --list-secret-keys --keyid-format=long --with-colons | awk -F: '/^sec:/ {print $5}')"
-gpg --armor --export "$GPGKEY"
+echo && printf '%*s\n' 64 '' | tr ' ' '+' && echo
+gpg --armor --export "$(gpg --list-secret-keys --keyid-format=long --with-colons bull.justin@gmail.com | awk -F: '/^sec:/ {print $5}')"
+echo && printf '%*s\n' 64 '' | tr ' ' '+' && echo
+gpg --armor --export "$(gpg --list-secret-keys --keyid-format=long --with-colons justin.bull@base1.com | awk -F: '/^sec:/ {print $5}')"
+echo && printf '%*s\n' 64 '' | tr ' ' '+' && echo
 ```
 
 ### Locales are used by glibc and other locale-aware programs or libraries for rendering text, correctly displaying regional monetary values, time and date formats.
