@@ -74,12 +74,13 @@ export LIBVA_DRIVER_NAME=nvidia
 export LIBVA_MESSAGING_LEVEL=1
 export GBM_BACKEND=nvidia-drm
 
-# By default, Ollama only binds to localhost
+# Ollama - Get up and running with large language models.
+# Note: by default, ollama only binds to localhost
 export OLLAMA_HOST="0.0.0.0:11434"
 export OLLAMA_NO_ANALYTICS=1
 
 # ComfyUI
-# The most powerful and modular diffusion model GUI, api and backend with a graph/nodes interface
+# The most powerful and modular diffusion model GUI, api and backend with a graph/nodes interface.
 export COMFYUI_MODEL_PATH="/home/justin/ComfyUI/models"
 export COMFYUI_OUTPUT_PATH="/home/justin/ComfyUI/output"
 export COMFYUI_TEMP_PATH="/tmp/comfyui"

@@ -139,7 +139,7 @@
 # ============================================================================
 
 [includeIf "gitdir:~/Repos/base1/"]
-    path = ~/.gitconfig-work
+    path = ~/.gitconfig-base1
 
 [includeIf "gitdir:~/Repos/personal/"]
     path = ~/.gitconfig-personal
