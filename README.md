@@ -27,11 +27,8 @@ ssh-add ~/.ssh/id_ed25519_base1
 https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?tool=webui
 
 ```bash
-echo && printf '%*s\n' 64 '' | tr ' ' '+' && echo
 cat ~/.ssh/id_ed25519_personal.pub
-echo && printf '%*s\n' 64 '' | tr ' ' '+' && echo
 cat ~/.ssh/id_ed25519_base1.pub
-echo && printf '%*s\n' 64 '' | tr ' ' '+' && echo
 ```
 
 ### Generating a new GPG key
@@ -71,11 +68,8 @@ EOF
 https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account
 
 ```bash
-echo && printf '%*s\n' 64 '' | tr ' ' '+' && echo
 gpg --armor --export "$(gpg --list-secret-keys --keyid-format=long --with-colons bull.justin@gmail.com | awk -F: '/^sec:/ {print $5}')"
-echo && printf '%*s\n' 64 '' | tr ' ' '+' && echo
 gpg --armor --export "$(gpg --list-secret-keys --keyid-format=long --with-colons justin.bull@base1.com | awk -F: '/^sec:/ {print $5}')"
-echo && printf '%*s\n' 64 '' | tr ' ' '+' && echo
 ```
 
 ### Locales are used by glibc and other locale-aware programs or libraries for rendering text, correctly displaying regional monetary values, time and date formats.
