@@ -12,19 +12,22 @@ export DISABLE_AUTO_UPDATE=true
 # Tell GPG which terminal to use for user interaction
 export GPG_TTY="$(tty)"
 
+# Language settings (useful for some apps)
+export LANG="en_US.UTF-8"
+export LC_ALL="$LANG"
+export TZ="America/Toronto"
+
 # Set environment variables
 export EDITOR='vim'
 export VISUAL='vim'
 export TERMINAL='kitty'
 export BROWSER='firefox'
 
-# Java / JetBrains-specific environment variables
-# export IDEA_JDK='/usr/share/pycharm/jbr'
-# export JAVA_HOME='/usr/lib/jvm/java-21-openjdk'
-# export PATH="$JAVA_HOME/bin:$PATH"
+# Ensure applications know which terminal type is being used
+export TERM="xterm-kitty"
 
-# Node / NPM-specific environment variables 
-# nvm is not compatible with the "NPM_CONFIG_PREFIX" environment variable
+# NPM configuration
+# Note: nvm is not compatible with the NPM_CONFIG_PREFIX environment variable
 # export NPM_CONFIG_PREFIX="$HOME/.npm-global"
 # export NODE_PATH="$NPM_CONFIG_PREFIX/lib/node_modules"
 # export PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
@@ -46,23 +49,14 @@ export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 
-# Language settings (useful for some apps)
-export LANG="en_US.UTF-8"
-export LC_ALL="$LANG"
-export TZ="America/Toronto"
-
-# Configure Git (useful for Git integration)
+# Git configuration
 export GIT_AUTHOR_NAME="Justin Bull"
 export GIT_AUTHOR_EMAIL="bull.justin@gmail.com"
 export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
 export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
-
-# Ensure applications know which terminal type is being used
-export TERM="xterm-kitty"
-
-# A GPG key (GNU Privacy Guard key) is a cryptographic key pair (public and private) used for secure communication,
-# primarily for digitally signing data like Git commits to verify identity/integrity or encrypting files
-# export GPGKEY="$(gpg --list-secret-keys --keyid-format=long --with-colons | awk -F: '/^sec:/ {print $5}')"
+export GIT_EDITOR="vim"
+export GIT_PAGER="diff-so-fancy | less -R"
+export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519_personal -F /dev/null"
 
 # VA-API implemention using NVIDIA's NVDEC
 # https://github.com/elFarto/nvidia-vaapi-driver?tab=readme-ov-file#nvidia-vaapi-driver

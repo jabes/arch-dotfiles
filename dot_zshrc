@@ -57,4 +57,4 @@ alias open="xdg-open"
 alias rm="rm --preserve-root=all --verbose"
 alias mkdir="mkdir --parents --mode=755 --verbose"
 alias ll="ls --all --color=always --classify=always --format=long --group-directories-first --human-readable --sort=name --time=mtime --time-style=long-iso"
-
+alias upgrade="topgrade --cleanup --yes"
