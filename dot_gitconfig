@@ -143,3 +143,6 @@
 
 [includeIf "gitdir:~/Repos/personal/"]
     path = ~/.gitconfig-personal
+
+[includeIf "gitdir:/home/justin/.local/share/chezmoi/"]
+    path = ~/.gitconfig-personal
