@@ -1,0 +1,145 @@
+# ============================================================================
+# Identity
+# ============================================================================
+
+[init]
+    defaultBranch = main
+
+[core]
+    editor = vim
+    pager = diff-so-fancy | less --tabs=4 -RF
+    whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+    untrackedCache = true
+    fsmonitor = true
+
+# ============================================================================
+# Commit & Tag Signing
+# ============================================================================
+
+[commit]
+    gpgsign = true
+    verbose = true
+
+[tag]
+    gpgSign = true
+    sort = -version:refname
+
+[gpg]
+    format = openpgp
+
+# ============================================================================
+# Branch & Remote Management
+# ============================================================================
+
+[branch]
+    sort = -committerdate
+
+[push]
+    default = current
+    autoSetupRemote = true
+    followTags = true
+
+[pull]
+    rebase = true
+
+[fetch]
+    prune = true
+    pruneTags = true
+
+# ============================================================================
+# Diff & Merge Configuration
+# ============================================================================
+
+[diff]
+    algorithm = histogram
+    renames = copies
+    mnemonicPrefix = true
+    colorMoved = default
+
+[merge]
+    conflictStyle = zdiff3
+    keepBackup = false
+
+[rebase]
+    autoStash = true
+    autoSquash = true
+
+[rerere]
+    enabled = true
+
+# ============================================================================
+# Interactive & Pager Settings
+# ============================================================================
+
+[interactive]
+    diffFilter = diff-so-fancy --patch
+
+[pager]
+    branch = false
+    tag = false
+
+# ============================================================================
+# Color Configuration
+# ============================================================================
+
+[color]
+    ui = true
+
+[color "diff-highlight"]
+    oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
+
+[color "diff"]
+    meta = 11
+    frag = magenta bold
+    func = 146 bold
+    commit = yellow bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+
+[color "status"]
+    added = green bold
+    changed = yellow bold
+    untracked = red bold
+
+# ============================================================================
+# Status & Log Configuration
+# ============================================================================
+
+[status]
+    showUntrackedFiles = all
+    branch = true
+    showStash = true
+
+[log]
+    date = relative
+    abbrevCommit = true
+
+# ============================================================================
+# Security & Performance
+# ============================================================================
+
+[safe]
+    directory = /home/justin/.nvm
+
+[credential]
+    helper = cache --timeout=14400
+
+[transfer]
+    fsckObjects = true
+
+[receive]
+    fsckObjects = true
+
+# ============================================================================
+# Conditional Includes
+# ============================================================================
+
+[includeIf "gitdir:~/Repos/base1/"]
+    path = ~/.gitconfig-work
+
+[includeIf "gitdir:~/Repos/personal/"]
+    path = ~/.gitconfig-personal

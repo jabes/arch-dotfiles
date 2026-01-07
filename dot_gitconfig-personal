@@ -1,0 +1,8 @@
+[core]
+        sshCommand="ssh -i ~/.ssh/id_ed25519_personal"
+
+[user]
+        name = Justin Bull
+        email = bull.justin@gmail.com
+        signingkey = 733B1BFA73B7050C
+

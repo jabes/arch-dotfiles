@@ -1,6 +1,12 @@
 # Disable automatic updates entirely
 zstyle ':omz:update' mode disabled
 
+# Additional completion definitions for Zsh
+# https://github.com/zsh-users/zsh-completions
+fpath+=($HOME/.zfunc)
+fpath+=($ZSH_CUSTOM/plugins/zsh-completions/src)
+autoload -U compinit && compinit
+
 # Which plugins would you like to load?
 # Add wisely, as too many plugins slow down shell startup.
 # Note that zsh-syntax-highlighting must be the last plugin sourced.
@@ -13,25 +19,37 @@ source $ZSH/oh-my-zsh.sh
 # https://github.com/trapd00r/LS_COLORS
 source $HOME/.lscolors/lscolors.sh
 
-# Display random quotation
-fortune -s | cowsay
-printf '%*s\n' 50 '' | tr ' ' '-'
+# Display system info
+if command -v fastfetch &>/dev/null
+then fastfetch --logo none --pipe --percent-type 1 --structure "OS:Host:Kernel:Uptime:Packages:DE:WM:Shell:Terminal:CPU:GPU:Memory:Disk:Battery" | cowsay -n | lolcat
+fi
 
 # Start ssh-agent if not running
 if [ -n "$SSH_AUTH_SOCK" ]
-then echo "SSH agent already running: $SSH_AUTH_SOCK"
-else eval "$(ssh-agent -s)"
+then echo "SSH agent already running: $SSH_AUTH_SOCK" | lolcat
+else
+    eval "$(ssh-agent -s)" >/dev/null
+    echo "SSH agent started: $SSH_AGENT_PID" | lolcat
+    echo "SSH socket: $SSH_AUTH_SOCK" | lolcat
 fi
 
 # Add identities to the authentication agent
-find "$HOME/.ssh" -type f -name 'id_*' ! -name '*.pub' -exec ssh-add {} \;
+ssh-add -l &>/dev/null
+if [[ $? -eq 1 ]]
+then find "$HOME/.ssh" -type f -name 'id_*' ! -name '*.pub' -exec ssh-add {} \; 2>&1 | lolcat
+fi
+
+# Lists fingerprints of all identities currently represented by the agent
+ssh-add -l | lolcat
 
 # Simple Python version management
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+if command -v pyenv &>/dev/null; then
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
 
 # Node version manager
-source "/usr/share/nvm/init-nvm.sh"
+[[ -s "/usr/share/nvm/init-nvm.sh" ]] && source "/usr/share/nvm/init-nvm.sh"
 
 # Aliases
 alias ..="cd .."
@@ -39,44 +57,4 @@ alias open="xdg-open"
 alias rm="rm --preserve-root=all --verbose"
 alias mkdir="mkdir --parents --mode=755 --verbose"
 alias ll="ls --all --color=always --classify=always --format=long --group-directories-first --human-readable --sort=name --time=mtime --time-style=long-iso"
-alias zshconfig="kate ~/.zshrc"
-alias ohmyzsh="kate ~/.oh-my-zsh"
 
-# Git configuration
-# https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key
-git config --global user.name "$GIT_AUTHOR_NAME"
-git config --global user.email "$GIT_AUTHOR_EMAIL"
-git config --global user.signingkey "$GPGKEY"
-git config --global commit.gpgsign true
-git config --global tag.gpgSign true
-git config --global gpg.format openpgp
-git config --global init.defaultBranch 'main'
-git config --global core.editor 'vim'
-
-# Good-lookin' diffs. Actually… nah… The best-lookin' diffs.
-git config --global core.pager "diff-so-fancy | less --tabs=4 -RF"
-git config --global interactive.diffFilter "diff-so-fancy --patch"
-git config --global color.ui true
-git config --global color.diff-highlight.oldNormal    "red bold"
-git config --global color.diff-highlight.oldHighlight "red bold 52"
-git config --global color.diff-highlight.newNormal    "green bold"
-git config --global color.diff-highlight.newHighlight "green bold 22"
-git config --global color.diff.meta       "11"
-git config --global color.diff.frag       "magenta bold"
-git config --global color.diff.func       "146 bold"
-git config --global color.diff.commit     "yellow bold"
-git config --global color.diff.old        "red bold"
-git config --global color.diff.new        "green bold"
-git config --global color.diff.whitespace "red reverse"
-
-# Define safe directories
-git config --global --unset-all safe.directory
-git config --global --add safe.directory $NVM_DIR
-
-# Clear JetBrains lock state
-find "$HOME/.var/app" -name ".lock" -delete
-
-# Display system info
-printf '%*s\n' 50 '' | tr ' ' '-'
-fastfetch --logo none --pipe --percent-type 3 --structure "OS:Host:Kernel:Uptime:Packages:DE:WM:Shell:Terminal:CPU:GPU:Memory:Disk:Battery"
-printf '%*s\n' 50 '' | tr ' ' '-'

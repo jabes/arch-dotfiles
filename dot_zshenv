@@ -39,7 +39,7 @@ export NVM_DIR="$HOME/.nvm"
 # Python version management
 export PYENV_COLOR=0
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH="$PYENV_ROOT/shims:$PATH"
 
 # Add custom scripts directory
 export PATH="$HOME/bin:$PATH"
@@ -62,7 +62,7 @@ export TERM="xterm-kitty"
 
 # A GPG key (GNU Privacy Guard key) is a cryptographic key pair (public and private) used for secure communication,
 # primarily for digitally signing data like Git commits to verify identity/integrity or encrypting files
-export GPGKEY="$(gpg --list-secret-keys --keyid-format=long --with-colons | awk -F: '/^sec:/ {print $5}')"
+# export GPGKEY="$(gpg --list-secret-keys --keyid-format=long --with-colons | awk -F: '/^sec:/ {print $5}')"
 
 # VA-API implemention using NVIDIA's NVDEC
 # https://github.com/elFarto/nvidia-vaapi-driver?tab=readme-ov-file#nvidia-vaapi-driver
@@ -72,4 +72,19 @@ export MOZ_ENABLE_WAYLAND=1
 export MOZ_DISABLE_RDD_SANDBOX=1
 export LIBVA_DRIVER_NAME=nvidia
 export LIBVA_MESSAGING_LEVEL=1
+export GBM_BACKEND=nvidia-drm
+
+# By default, Ollama only binds to localhost
+export OLLAMA_HOST="0.0.0.0:11434"
+export OLLAMA_NO_ANALYTICS=1
+
+# ComfyUI
+# The most powerful and modular diffusion model GUI, api and backend with a graph/nodes interface
+export COMFYUI_MODEL_PATH="/home/justin/ComfyUI/models"
+export COMFYUI_OUTPUT_PATH="/home/justin/ComfyUI/output"
+export COMFYUI_TEMP_PATH="/tmp/comfyui"
+export COMFYUI_LISTEN="0.0.0.0"
+export COMFYUI_PORT=8188
+export COMFYUI_ENABLE_CORS="false"
+export COMFYUI_AUTO_LAUNCH="false"
 
