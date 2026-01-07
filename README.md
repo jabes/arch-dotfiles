@@ -72,6 +72,26 @@ gpg --armor --export "$(gpg --list-secret-keys --keyid-format=long --with-colons
 gpg --armor --export "$(gpg --list-secret-keys --keyid-format=long --with-colons justin.bull@base1.com | awk -F: '/^sec:/ {print $5}')"
 ```
 
+### Update git configuration with newly created credentials
+
+```bash
+export GIT_AUTHOR_NAME="Justin Bull"
+export GIT_AUTHOR_EMAIL="bull.justin@gmail.com"
+git config -f ~/.gitconfig-personal user.name "$GIT_AUTHOR_NAME"
+git config -f ~/.gitconfig-personal user.email "$GIT_AUTHOR_EMAIL"
+git config -f ~/.gitconfig-personal user.signingkey "$(gpg --list-secret-keys --keyid-format=long $GIT_AUTHOR_EMAIL | grep sec | awk '{print $2}' | cut -d'/' -f2)"
+git config -f ~/.gitconfig-personal core.sshCommand "ssh -i ~/.ssh/id_ed25519_personal"
+```
+
+```bash
+export GIT_AUTHOR_NAME="Justin Bull"
+export GIT_AUTHOR_EMAIL="justin.bull@base1.com"
+git config -f ~/.gitconfig-work user.name "$GIT_AUTHOR_NAME"
+git config -f ~/.gitconfig-work user.email "$GIT_AUTHOR_EMAIL"
+git config -f ~/.gitconfig-work user.signingkey "$(gpg --list-secret-keys --keyid-format=long $GIT_AUTHOR_EMAIL | grep sec | awk '{print $2}' | cut -d'/' -f2)"
+git config -f ~/.gitconfig-work core.sshCommand "ssh -i ~/.ssh/id_ed25519_base1"
+```
+
 ### Locales are used by glibc and other locale-aware programs or libraries for rendering text, correctly displaying regional monetary values, time and date formats.
 
 ```bash
