@@ -1,0 +1,7 @@
+export MOZ_ENABLE_WAYLAND=1
+export MOZ_DISABLE_RDD_SANDBOX=1
+export LIBVA_DRIVER_NAME=radeonsi
+export VDPAU_DRIVER=radeonsi
+export AMD_VULKAN_ICD=RADV
+export RADV_PERFTEST=gpl
+export QT_QPA_PLATFORM=wayland
