@@ -10,6 +10,9 @@ export ZCOMP_DUMP_FILE="${HOME}/.zcompdump-${HOST}-${ZSH_VERSION}"
 # Powerlevel10k instant prompt cache file
 export P10K_INSTANT_PROMPT_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 
+# Used to target specific hardware configs
+export GPU_SLUG="$(lspci | grep VGA | sed 's/.*: //' | sed 's/ (.*)$//' | tr '[:upper:]' '[:lower:]' | tr -s '[:space:]' '-' | sed 's/[^a-z0-9-]//g' | sed 's/-$//')"
+
 # Disable automatic updates prompt for Oh My Zsh
 # https://stackoverflow.com/a/25876379/229787
 export DISABLE_AUTO_UPDATE="true"
@@ -47,19 +50,6 @@ export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 
-# VA-API implemention using NVIDIA's NVDEC
-# https://github.com/elFarto/nvidia-vaapi-driver?tab=readme-ov-file#nvidia-vaapi-driver
-export NVD_LOG=1
-export NVD_BACKEND=direct
-export MOZ_ENABLE_WAYLAND=1
-export MOZ_DISABLE_RDD_SANDBOX=1
-export LIBVA_DRIVER_NAME=nvidia
-export LIBVA_MESSAGING_LEVEL=1
-export GBM_BACKEND=nvidia-drm
-export __GLX_VENDOR_LIBRARY_NAME=nvidia
-export __GL_GSYNC_ALLOWED=1
-export __GL_VRR_ALLOWED=1
-
 # Ollama - Get up and running with large language models.
 # Note: by default, ollama only binds to localhost
 export OLLAMA_HOST="0.0.0.0:11434"
@@ -75,12 +65,5 @@ export COMFYUI_PORT=8188
 export COMFYUI_ENABLE_CORS="false"
 export COMFYUI_AUTO_LAUNCH="false"
 
-# Force OpenGL
-export EGL_PLATFORM=wayland
-export QSG_RHI_BACKEND=opengl
-export QT_QUICK_BACKEND=opengl
-export QT_QPA_PLATFORM=wayland
-export QT_WAYLAND_FORCE_DRM=1
-export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-export QT_AUTO_SCREEN_SCALE_FACTOR=1
-
+# Additional hardware specific configs
+[ -f "${HOME}/.zshenv.${GPU_SLUG}" ] && source "${HOME}/.zshenv.${GPU_SLUG}"
