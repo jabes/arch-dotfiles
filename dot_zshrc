@@ -1,3 +1,8 @@
+# Enable Powerlevel10k instant prompt
+if [[ -r "$P10K_INSTANT_PROMPT_FILE" ]]
+then source "$P10K_INSTANT_PROMPT_FILE"
+fi
+
 # Disable automatic updates entirely
 zstyle ':omz:update' mode disabled
 
@@ -5,7 +10,15 @@ zstyle ':omz:update' mode disabled
 # https://github.com/zsh-users/zsh-completions
 fpath+=($HOME/.zfunc)
 fpath+=($ZSH_CUSTOM/plugins/zsh-completions/src)
-autoload -U compinit && compinit
+
+# Mark function for autoloading
+autoload -Uz compinit
+
+# Skip security checks and load completion cache directly
+if [[ ! -f ${ZCOMP_DUMP_FILE} ]] || [[ $(find ${ZCOMP_DUMP_FILE} -mtime +1 2>/dev/null) ]]
+then compinit
+else compinit -C
+fi
 
 # Which plugins would you like to load?
 # Add wisely, as too many plugins slow down shell startup.
@@ -19,28 +32,15 @@ source $ZSH/oh-my-zsh.sh
 # https://github.com/trapd00r/LS_COLORS
 source $HOME/.lscolors/lscolors.sh
 
-# Display system info
-if command -v fastfetch &>/dev/null
-then fastfetch --logo none --pipe --percent-type 1 --structure "OS:Host:Kernel:Uptime:Packages:DE:WM:Shell:Terminal:CPU:GPU:Memory:Disk:Battery" | cowsay -n | lolcat
-fi
-
 # Start ssh-agent if not running
-if [ -n "$SSH_AUTH_SOCK" ]
-then echo "SSH agent already running: $SSH_AUTH_SOCK" | lolcat
-else
-    eval "$(ssh-agent -s)" >/dev/null
-    echo "SSH agent started: $SSH_AGENT_PID" | lolcat
-    echo "SSH socket: $SSH_AUTH_SOCK" | lolcat
+if [ -z "$SSH_AUTH_SOCK" ]
+then eval "$(ssh-agent -s)" &>/dev/null
 fi
 
 # Add identities to the authentication agent
-ssh-add -l &>/dev/null
-if [[ $? -eq 1 ]]
-then find "$HOME/.ssh" -type f -name 'id_*' ! -name '*.pub' -exec ssh-add {} \; 2>&1 | lolcat
+if ! ssh-add -l &>/dev/null
+then find "$HOME/.ssh" -type f -name 'id_*' ! -name '*.pub' -exec ssh-add {} \; &>/dev/null
 fi
-
-# Lists fingerprints of all identities currently represented by the agent
-ssh-add -l | lolcat
 
 # Simple Python version management
 if command -v pyenv &>/dev/null; then
@@ -58,3 +58,8 @@ alias rm="rm --preserve-root=all --verbose"
 alias mkdir="mkdir --parents --mode=755 --verbose"
 alias ll="ls --all --color=always --classify=always --format=long --group-directories-first --human-readable --sort=name --time=mtime --time-style=long-iso"
 alias upgrade="topgrade --cleanup --yes"
+alias sysinfo="fastfetch --logo none --pipe --percent-type 3 --structure OS:Host:Kernel:Uptime:Packages:DE:WM:Shell:Terminal:CPU:GPU:Memory:Disk:Battery"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+

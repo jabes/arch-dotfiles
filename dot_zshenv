@@ -2,12 +2,20 @@
 export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load
-export ZSH_THEME="robbyrussell"
+export ZSH_THEME="powerlevel10k/powerlevel10k"
+
+# Define cache location for the zsh completion system
+export ZCOMP_DUMP_FILE="${HOME}/.zcompdump-${HOST}-${ZSH_VERSION}"
+
+# Powerlevel10k instant prompt cache file
+export P10K_INSTANT_PROMPT_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 
 # Disable automatic updates prompt for Oh My Zsh
 # https://stackoverflow.com/a/25876379/229787
-export DISABLE_UPDATE_PROMPT=true
-export DISABLE_AUTO_UPDATE=true
+export DISABLE_AUTO_UPDATE="true"
+export DISABLE_UPDATE_PROMPT="true"
+export DISABLE_MAGIC_FUNCTIONS="true"
+export DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Tell GPG which terminal to use for user interaction
 export GPG_TTY="$(tty)"
@@ -26,16 +34,6 @@ export BROWSER='firefox'
 # Ensure applications know which terminal type is being used
 export TERM="xterm-kitty"
 
-# NPM configuration
-# Note: nvm is not compatible with the NPM_CONFIG_PREFIX environment variable
-# export NPM_CONFIG_PREFIX="$HOME/.npm-global"
-# export NODE_PATH="$NPM_CONFIG_PREFIX/lib/node_modules"
-# export PATH="$NPM_CONFIG_PREFIX/bin:$PATH"
-export NPM_CONFIG_AUDIT="false"
-export NPM_CONFIG_FUND="false"
-export NPM_CONFIG_UPDATE_NOTIFIER="false"
-export NPM_CONFIG_LOGLEVEL="info"
-
 # Node version manager
 export NVM_DIR="$HOME/.nvm"
 
@@ -48,15 +46,6 @@ export PATH="$PYENV_ROOT/shims:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
-
-# Git configuration
-export GIT_AUTHOR_NAME="Justin Bull"
-export GIT_AUTHOR_EMAIL="bull.justin@gmail.com"
-export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
-export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
-export GIT_EDITOR="vim"
-export GIT_PAGER="diff-so-fancy | less -R"
-export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519_personal -F /dev/null"
 
 # VA-API implemention using NVIDIA's NVDEC
 # https://github.com/elFarto/nvidia-vaapi-driver?tab=readme-ov-file#nvidia-vaapi-driver
