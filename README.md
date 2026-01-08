@@ -40,6 +40,11 @@ cd /tmp
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
+```
+
+A few packages to get started:
+
+```bash
 yay -S jetbrains-toolbox
 yay -S topgrade
 yay -S sourcegit
