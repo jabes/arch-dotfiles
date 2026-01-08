@@ -21,6 +21,7 @@ sudo pacman -Syu \
     mpv \
     nmap \
     nvm \
+    nvtop \
     openssh \
     pacman-contrib \
     pyenv \
