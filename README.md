@@ -1,7 +1,46 @@
 ### Install required packages
 
 ```bash
-sudo pacman -S cowsay diff-so-fancy fastfetch fortune-mod git gnupg kitty less nvm openssh pyenv ttf-ibm-plex vim zsh
+sudo pacman -S \
+    ark \
+    base base-devel \
+    btop \
+    chezmoi \
+    cowsay \
+    diff-so-fancy \
+    fastfetch \
+    fortune-mod \
+    fzf \
+    git \
+    gnupg \
+    htop \
+    hwinfo \
+    inxi \
+    jq \
+    lazydocker \
+    lazygit \
+    less \
+    mpv \
+    nmap \
+    nvm \
+    openssh \
+    pyenv \
+    reflector \
+    ttf-ibm-plex \
+    vim \
+    xclip \
+    zsh
+```
+
+### Yet another Yogurt - An AUR Helper written in Go 
+
+```
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+yay -S jetbrains-toolbox
+yay -S topgrade
+yay -S sourcegit
 ```
 
 ### A pyenv plugin to manage virtualenv (a.k.a. python-virtualenv)
