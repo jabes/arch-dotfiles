@@ -6,10 +6,8 @@ sudo pacman -Syu \
     base base-devel \
     btop \
     chezmoi \
-    cowsay \
     diff-so-fancy \
     fastfetch \
-    fortune-mod \
     fzf \
     git \
     gnupg \
