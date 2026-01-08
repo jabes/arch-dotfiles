@@ -54,6 +54,8 @@ fi
 # Aliases
 alias ..="cd .."
 alias open="xdg-open"
+alias pbcopy="xclip -selection clipboard"
+alias pbpaste="xclip -selection clipboard -o"
 alias rm="rm --preserve-root=all --verbose"
 alias mkdir="mkdir --parents --mode=755 --verbose"
 alias ll="ls --all --color=always --classify=always --format=long --group-directories-first --human-readable --sort=name --time=mtime --time-style=long-iso"
