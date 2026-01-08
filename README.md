@@ -1,7 +1,7 @@
 ### Install required packages
 
 ```bash
-sudo pacman -S \
+sudo pacman -Syu \
     ark \
     base base-devel \
     btop \
@@ -24,6 +24,7 @@ sudo pacman -S \
     nmap \
     nvm \
     openssh \
+    pacman-contrib \
     pyenv \
     reflector \
     ttf-ibm-plex \
@@ -32,15 +33,24 @@ sudo pacman -S \
     zsh
 ```
 
-### Yet another Yogurt - An AUR Helper written in Go 
+### Yet another Yogurt - An AUR Helper written in Go
 
-```
+```bash
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
 yay -S jetbrains-toolbox
 yay -S topgrade
 yay -S sourcegit
+```
+
+### Cleaning the package cache
+
+https://wiki.archlinux.org/title/Pacman#Cleaning_the_package_cache
+
+```bash
+# Deletes all cached versions of installed and uninstalled packages, except for the most recent three. 
+sudo systemctl enable --now paccache.timer
 ```
 
 ### A pyenv plugin to manage virtualenv (a.k.a. python-virtualenv)
