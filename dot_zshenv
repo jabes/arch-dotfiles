@@ -40,6 +40,10 @@ export TERM="xterm-kitty"
 # Node version manager
 export NVM_DIR="$HOME/.nvm"
 
+# The QMK CLI makes building and working with QMK keyboards easier.
+# We have provided a number of commands to simplify and streamline tasks such as obtaining and compiling the QMK firmware, creating keymaps, and more.
+export QMK_HOME="$HOME/qmk_firmware"
+
 # Python version management
 export PYENV_COLOR=0
 export PYENV_ROOT="$HOME/.pyenv"
