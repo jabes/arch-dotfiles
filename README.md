@@ -9,6 +9,7 @@ sudo pacman -Syu \
     chezmoi \
     cpufetch \
     cronie \
+    ctop \
     curl \
     diff-so-fancy \
     docker \
@@ -241,6 +242,91 @@ nvm install --lts
 nvm use --lts
 npm install -g gtop
 npm install -g npm-check-updates
+```
+
+## Docker
+
+Linux post-installation steps for docker engine.
+
+https://docs.docker.com/engine/install/linux-postinstall/
+
+```bash
+sudo systemctl enable --now docker
+sudo usermod -aG docker $USER
+newgrp docker
+docker run hello-world
+```
+
+#### Docker daemon configuration
+
+https://docs.docker.com/reference/cli/dockerd/#daemon-configuration-file
+
+```bash
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<'EOF'
+{
+  "log-driver": "journald",
+  "log-opts": {
+    "tag": "{{.Name}}/{{.ID}}"
+  },
+  "storage-driver": "overlay2",
+  "live-restore": true,
+  "userland-proxy": false,
+  "dns": ["1.1.1.1", "1.0.0.1"],
+  "max-concurrent-downloads": 10,
+  "default-ulimits": {
+    "nofile": {
+      "Name": "nofile",
+      "Hard": 64000,
+      "Soft": 64000
+    }
+  },
+  "icc": false,
+  "iptables": true,
+  "features": {
+    "buildkit": true
+  }
+}
+EOF
+
+# Validate configuration
+sudo dockerd --validate
+
+# Restart Docker
+sudo systemctl restart docker
+
+# Verify settings
+docker info | grep -E "Logging Driver|Storage Driver"
+```
+
+#### Journal service configuration
+
+https://www.freedesktop.org/software/systemd/man/latest/journald.conf.html
+
+```bash
+sudo tee /etc/systemd/journald.conf <<'EOF'
+[Journal]
+# Storage location
+Storage=persistent
+# Maximum disk space journald can use
+SystemMaxUse=2G
+# Keep free disk space
+SystemKeepFree=1G
+# Maximum size of individual journal files
+SystemMaxFileSize=200M
+# How long to keep logs
+MaxRetentionSec=2week
+# Compress logs
+Compress=yes
+# Forward to syslog (usually not needed)
+ForwardToSyslog=no
+# Rate limiting (prevent log flooding)
+RateLimitIntervalSec=30s
+RateLimitBurst=10000
+EOF
+
+# Apply changes
+sudo systemctl restart systemd-journald
 ```
 
 ## Update keyboard firmware
