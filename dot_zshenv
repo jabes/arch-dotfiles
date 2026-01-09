@@ -35,7 +35,7 @@ export TERMINAL='kitty'
 export BROWSER='firefox'
 
 # Ensure applications know which terminal type is being used
-export TERM="xterm-kitty"
+# export TERM="xterm-kitty"
 
 # Node version manager
 export NVM_DIR="$HOME/.nvm"
