@@ -1,4 +1,4 @@
-### Install required packages
+## Install required packages
 
 ```bash
 sudo pacman -Syu \
@@ -54,7 +54,9 @@ sudo pacman -Syu \
     zsh
 ```
 
-### Yet another Yogurt - An AUR Helper written in Go
+## Yet another Yogurt - An AUR Helper written in Go
+
+The initial installation of yay can be done by cloning the PKGBUILD and building with makepkg:
 
 ```bash
 cd /tmp
@@ -71,7 +73,7 @@ yay -S topgrade
 yay -S sourcegit
 ```
 
-### Cleaning the package cache
+## Clean package cache
 
 https://wiki.archlinux.org/title/Pacman#Cleaning_the_package_cache
 
@@ -80,13 +82,29 @@ https://wiki.archlinux.org/title/Pacman#Cleaning_the_package_cache
 sudo systemctl enable --now paccache.timer
 ```
 
-### A pyenv plugin to manage virtualenv (a.k.a. python-virtualenv)
+## Python version management
+
+To install additional Python versions, use pyenv install.
 
 ```bash
-git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+pyenv install 3.14
+pyenv global 3.14
+pyenv versions
 ```
 
-### Generating a new SSH key and adding it to the ssh-agent
+To create a virtualenv for the Python version used with pyenv, run pyenv virtualenv, specifying the Python version you want and the name of the virtualenv directory.
+
+```bash
+git clone https://github.com/yyuu/pyenv-virtualenv.git $PYENV_ROOT/plugins/pyenv-virtualenv
+pyenv virtualenv 3.11.14 my-virtual-env-3.11.14
+pyenv virtualenvs
+pyenv activate my-virtual-env-3.11.14
+pyenv version
+pyenv deactivate
+pyenv virtualenv-delete my-virtual-env-3.11.14
+```
+
+## Generating a new SSH key and adding it to the ssh-agent
 
 https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
@@ -98,16 +116,16 @@ ssh-add ~/.ssh/id_ed25519_personal
 ssh-add ~/.ssh/id_ed25519_base1
 ```
 
-### Adding a new SSH key to your account
+## Add SSH keys to GitHub
 
-https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account?tool=webui
+https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
 
 ```bash
 cat ~/.ssh/id_ed25519_personal.pub
 cat ~/.ssh/id_ed25519_base1.pub
 ```
 
-### Generating a new GPG key
+## Generating GPG keys
 
 https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key
 
@@ -139,7 +157,7 @@ Expire-Date: 0
 EOF
 ```
 
-### Adding a GPG key to your GitHub account
+## Add GPG keys to GitHub
 
 https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account
 
@@ -148,7 +166,7 @@ gpg --armor --export "$(gpg --list-secret-keys --keyid-format=long --with-colons
 gpg --armor --export "$(gpg --list-secret-keys --keyid-format=long --with-colons justin.bull@base1.com | awk -F: '/^sec:/ {print $5}')"
 ```
 
-### Update git configuration with newly created credentials
+## Update workspace specific git configurations
 
 ```bash
 export GIT_AUTHOR_NAME="Justin Bull"
@@ -168,27 +186,34 @@ git config -f ~/.gitconfig-work user.signingkey "$(gpg --list-secret-keys --keyi
 git config -f ~/.gitconfig-work core.sshCommand "ssh -i ~/.ssh/id_ed25519_base1"
 ```
 
-### Locales are used by glibc and other locale-aware programs or libraries for rendering text, correctly displaying regional monetary values, time and date formats.
+## Generating locales
+
+Locales are used by glibc and other locale-aware programs or libraries for rendering text, correctly displaying regional monetary values, time and date formats.
 
 ```bash
 echo "en_US.UTF-8 UTF-8" | sudo tee /etc/locale.gen
 sudo locale-gen
 ```
 
-### A collection of LS_COLORS definitions
+## Define LS_COLORS
+
+This is a collection of extension:color mappings, suitable to use as your LS_COLORS environment variable.
+Most of them use the extended color map (described in the ECMA-48); in other words—you'll need a terminal with capabilities of displaying 256 colors.
 
 ```bash
 git clone https://github.com/trapd00r/LS_COLORS.git $HOME/.lscolors
 ```
 
-### The Ultimate vimrc
+## Ultimate vim configuration
 
 ```bash
 git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
 sh ~/.vim_runtime/install_awesome_vimrc.sh
 ```
 
-### Oh My Zsh is an open source, community-driven framework for managing your zsh configuration
+## Oh My Zsh
+
+Oh My Zsh is an open source, community-driven framework for managing your zsh configuration.
 
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -200,7 +225,7 @@ chsh -s /usr/bin/zsh
 exec zsh
 ```
 
-### Meslo Nerd Font patched for Powerlevel10k
+Install the recommended font: Meslo Nerd Font patched for Powerlevel10k
 
 ```bash
 sudo wget -q -O /usr/share/fonts/TTF/MesloLGSNFRegular.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
@@ -209,7 +234,7 @@ sudo wget -q -O /usr/share/fonts/TTF/MesloLGSNFBoldItalic.ttf https://github.com
 sudo wget -q -O /usr/share/fonts/TTF/MesloLGSNFItalic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
 ```
 
-### Node version manager
+## Node version manager
 
 ```bash
 nvm install --lts
@@ -218,7 +243,10 @@ npm install -g gtop
 npm install -g npm-check-updates
 ```
 
-### Update keyboard firmware
+## Update keyboard firmware
+
+- https://docs.qmk.fm/newbs_getting_started
+- https://docs.qmk.fm/newbs_flashing
 
 ```bash
 qmk setup
@@ -228,42 +256,46 @@ qmk setup
 qmk flash QMK_firmware_nuphy_gem80_trimode_ansi_v2.1.5.bin
 ```
 
-### Give access to the hidraw device via udev rules
+#### Give access to the hidraw device via udev rules
 
 ```bash
 sudo cp $HOME/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/
 ```
 
-### **[Bug]** 50-qmk.rules Broken on systemd 258
+#### Linux device manager bug
+
+A change to systemd with version 258 seems to have broken a lot of people's udev rules, and now the provided udev rule file no longer works.
 
 - https://github.com/qmk/qmk_firmware/issues/25847
 - https://github.com/systemd/systemd/issues/39056
 
-```plain
-Temporary fix
---------------------------------------------------
-Replace: KERNEL=="hidraw*", MODE="0660", GROUP="plugdev", TAG+="uaccess", TAG+="udev-acl"
-With:    KERNEL=="hidraw*", TAG+="uaccess"
-File:    /etc/udev/rules.d/50-qmk.rules`
-```
+#### Temporary fix
 
-### Reload and reapply udev rules
+|              |                                                                                    |
+|--------------|------------------------------------------------------------------------------------|
+| replace      | `KERNEL=="hidraw*", MODE="0660", GROUP="plugdev", TAG+="uaccess", TAG+="udev-acl"` |
+| with         | `KERNEL=="hidraw*", TAG+="uaccess"`                                                |
+| file         | `/etc/udev/rules.d/50-qmk.rules`                                                   |
+
+#### Reload and reapply udev rules
 
 ```bash
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 ```
 
-### VIA Usage Guide for NuPhy Keyboards
+## VIA Usage Guide for NuPhy Keyboards
 
-Resources:
+Configure, test and design in one place - VIA is the last application you'll need for your keyboard.
+
+#### Resources:
 
 - https://nuphy.com/pages/qmk-firmwares
 - https://nuphy.com/pages/update-instructions
 - https://nuphy.com/pages/json-files-for-nuphy-keyboards
 - https://nuphy.com/pages/instructions-on-flashing-the-rf-firmwares
 
-Quick instructions:
+#### Quick instructions:
 
 1. Plug keyboard into device using USB
 2. Open usevia.app with a Chromium-based browser
@@ -274,9 +306,9 @@ Quick instructions:
 
 ### VIA is a simple and friendly app that lets you plug in your keyboard and customize it
 
-- **Note:** VIA only supports browsers that have WebHID enabled.
-- Mozilla has a negative opinion of the API: https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API
-
 ```bash
+# VIA only supports browsers that have WebHID enabled
+# Mozilla has a negative opinion of the api
+# https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API
 chromium https://usevia.app
 ```
