@@ -28,6 +28,7 @@ sudo pacman -Syu \
     lazydocker \
     lazygit \
     less \
+    mediainfo \
     mpv \
     nmap \
     nvm \
