@@ -115,7 +115,7 @@ locale
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw allow ssh
-sudo ufw allow from 172.17.0.0/16 comment 'Docker Network'
+sudo ufw allow from 172.17.0.0/16 comment 'Docker'
 sudo ufw allow from 192.168.0.0/16 to any port 11434 proto tcp comment 'Ollama'
 sudo ufw allow from 192.168.0.0/16 to any port 8188 proto tcp comment 'ComfyUI'
 # Enable firewall
@@ -317,8 +317,6 @@ docker --version
 docker compose version
 # Test Docker installation
 docker run hello-world
-# Check running containers
-docker ps
 ```
 
 #### Docker daemon configuration
