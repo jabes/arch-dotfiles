@@ -74,6 +74,57 @@ yay -S topgrade
 yay -S sourcegit
 ```
 
+## Reflector
+
+Reflector is a Python script which can:
+
+1. Retrieve the latest mirror list
+2. Filter the most up-to-date mirrors
+3. Sort them by speed
+
+```bash
+## Configure fastest mirrors
+sudo reflector \
+  --country Canada \
+  --age 12 \
+  --protocol https \
+  --sort rate \
+  --save /etc/pacman.d/mirrorlist
+# Enable automatic mirror updates (weekly)
+sudo systemctl enable reflector.timer
+```
+
+## Generating locales
+
+Locales are used by glibc and other locale-aware programs or libraries for rendering text, correctly displaying regional monetary values, time and date formats.
+
+```bash
+CHARSET="UTF-8"
+LANG="en_US.${CHARSET}"
+echo "$LANG $CHARSET" | sudo tee /etc/locale.gen
+sudo locale-gen
+localectl set-locale "LANG=$LANG"
+localectl list-locales
+locale
+```
+
+## Firewall configuration
+
+```bash
+# Enable UFW
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow ssh
+sudo ufw allow from 172.17.0.0/16 comment 'Docker Network'
+sudo ufw allow from 192.168.0.0/16 to any port 11434 proto tcp comment 'Ollama'
+sudo ufw allow from 192.168.0.0/16 to any port 8188 proto tcp comment 'ComfyUI'
+# Enable firewall
+sudo ufw enable
+sudo systemctl enable ufw
+# Check UFW rules
+sudo ufw status numbered
+```
+
 ## Clean package cache
 
 https://wiki.archlinux.org/title/Pacman#Cleaning_the_package_cache
@@ -102,7 +153,7 @@ pyenv virtualenvs
 pyenv activate my-virtual-env-3.11.14
 pyenv version
 pyenv deactivate
-pyenv virtualenv-delete my-virtual-env-3.11.14
+pyenv uninstall my-virtual-env-3.11.14
 ```
 
 ## Generating a new SSH key and adding it to the ssh-agent
@@ -110,7 +161,7 @@ pyenv virtualenv-delete my-virtual-env-3.11.14
 https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
 ```bash
-ssh-keygen -t ed25519 -C "bull.ustin@gmail.com" -f ~/.ssh/id_ed25519_personal -N ""
+ssh-keygen -t ed25519 -C "bull.justin@gmail.com" -f ~/.ssh/id_ed25519_personal -N ""
 ssh-keygen -t ed25519 -C "justin.bull@base1.com" -f ~/.ssh/id_ed25519_base1 -N ""
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519_personal
@@ -187,13 +238,15 @@ git config -f ~/.gitconfig-work user.signingkey "$(gpg --list-secret-keys --keyi
 git config -f ~/.gitconfig-work core.sshCommand "ssh -i ~/.ssh/id_ed25519_base1"
 ```
 
-## Generating locales
+## Chezmoi
 
-Locales are used by glibc and other locale-aware programs or libraries for rendering text, correctly displaying regional monetary values, time and date formats.
+Manage your dotfiles across multiple diverse machines, securely.
 
 ```bash
-echo "en_US.UTF-8 UTF-8" | sudo tee /etc/locale.gen
-sudo locale-gen
+# Initialize
+chezmoi init git@github.com:jabes/arch-dotfiles.git
+# Apply dotfiles
+chezmoi apply
 ```
 
 ## Define LS_COLORS
@@ -240,6 +293,8 @@ sudo wget -q -O /usr/share/fonts/TTF/MesloLGSNFItalic.ttf https://github.com/rom
 ```bash
 nvm install --lts
 nvm use --lts
+node --version
+npm --version
 npm install -g gtop
 npm install -g npm-check-updates
 ```
@@ -251,10 +306,19 @@ Linux post-installation steps for docker engine.
 https://docs.docker.com/engine/install/linux-postinstall/
 
 ```bash
+# Enable and start Docker service
 sudo systemctl enable --now docker
+# Add user to docker group
 sudo usermod -aG docker $USER
+# Apply group changes without logout
 newgrp docker
+# Version check
+docker --version
+docker compose version
+# Test Docker installation
 docker run hello-world
+# Check running containers
+docker ps
 ```
 
 #### Docker daemon configuration
