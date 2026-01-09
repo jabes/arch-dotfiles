@@ -4,15 +4,25 @@
 sudo pacman -Syu \
     ark \
     base base-devel \
+    bmon \
     btop \
     chezmoi \
+    cpufetch \
+    cronie \
+    curl \
     diff-so-fancy \
+    docker \
+    docker-buildx \
+    docker-compose \
     fastfetch \
     fzf \
     git \
+    github-cli \
+    glances \
     gnupg \
     htop \
     hwinfo \
+    iftop \
     inxi \
     jq \
     lazydocker \
@@ -22,12 +32,23 @@ sudo pacman -Syu \
     nmap \
     nvm \
     nvtop \
+    nyancat \
     openssh \
+    openvpn \
     pacman-contrib \
+    partitionmanager \
     pyenv \
+    qmk \
     reflector \
+    rust \
+    solaar \
+    sops \
+    spectacle \
     ttf-ibm-plex \
+    ufw \
+    usbutils \
     vim \
+    wget \
     xclip \
     zsh
 ```
