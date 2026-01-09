@@ -216,3 +216,66 @@ nvm use --lts
 npm install -g gtop
 npm install -g npm-check-updates
 ```
+
+### Update keyboard firmware
+
+```bash
+qmk setup
+# This is just an example
+# Go download the latest firmware and use that
+# https://nuphy.com/pages/qmk-firmwares
+qmk flash QMK_firmware_nuphy_gem80_trimode_ansi_v2.1.5.bin
+```
+
+### Give access to the hidraw device via udev rules
+
+```bash
+sudo cp $HOME/qmk_firmware/util/udev/50-qmk.rules /etc/udev/rules.d/
+```
+
+### **[Bug]** 50-qmk.rules Broken on systemd 258
+
+- https://github.com/qmk/qmk_firmware/issues/25847
+- https://github.com/systemd/systemd/issues/39056
+
+```plain
+Temporary fix
+--------------------------------------------------
+Replace: KERNEL=="hidraw*", MODE="0660", GROUP="plugdev", TAG+="uaccess", TAG+="udev-acl"
+With:    KERNEL=="hidraw*", TAG+="uaccess"
+File:    /etc/udev/rules.d/50-qmk.rules`
+```
+
+### Reload and reapply udev rules
+
+```bash
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+```
+
+### VIA Usage Guide for NuPhy Keyboards
+
+Resources:
+
+- https://nuphy.com/pages/qmk-firmwares
+- https://nuphy.com/pages/update-instructions
+- https://nuphy.com/pages/json-files-for-nuphy-keyboards
+- https://nuphy.com/pages/instructions-on-flashing-the-rf-firmwares
+
+Quick instructions:
+
+1. Plug keyboard into device using USB
+2. Open usevia.app with a Chromium-based browser
+3. Download the correct JSON file for your keyboard
+4. Go to settings tab and enable "Show Design Tab"
+5. Go to design tab and load the JSON file
+6. Go to configure tab and authorize device
+
+### VIA is a simple and friendly app that lets you plug in your keyboard and customize it
+
+- **Note:** VIA only supports browsers that have WebHID enabled.
+- Mozilla has a negative opinion of the API: https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API
+
+```bash
+chromium https://usevia.app
+```
