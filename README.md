@@ -241,7 +241,7 @@ user_pref("gfx.canvas.accelerated", true);
 EOF
 ```
 
-## Yet another Yogurt - An AUR Helper written in Go
+## AUR Helper
 
 The initial installation of yay can be done by cloning the PKGBUILD and building with makepkg:
 
