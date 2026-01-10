@@ -156,20 +156,26 @@ sudo pacman -Syu
 
 ```bash
 # AMD
-sudo pacman -S mesa lib32-mesa \
+sudo pacman -S \
+  mesa lib32-mesa \
+  mesa-vdpau lib32-mesa-vdpau \
   vulkan-radeon lib32-vulkan-radeon \
-  vulkan-icd-loader lib32-vulkan-icd-loader \
-  radeontop \
+  vulkan-icd-loader lib32-vulkan-icd-loader vulkan-tools \
+  libva libva-utils lib32-libva \
   libva-mesa-driver lib32-libva-mesa-driver \
-  libva-utils vdpauinfo vulkan-tools
+  libvdpau vdpauinfo \
+  radeontop
 
 # NVIDIA
-sudo pacman -S nvidia-open nvidia-utils lib32-nvidia-utils \
-  nvidia-settings \
-  opencl-nvidia \
+sudo pacman -S \
+  nvidia-open nvidia-settings nvidia-utils lib32-nvidia-utils \
+  vulkan-icd-loader lib32-vulkan-icd-loader vulkan-tools \
+  libva libva-utils lib32-libva \
   libva-nvidia-driver \
-  libva-utils vdpauinfo vulkan-tools \
-  egl-wayland
+  libvdpau vdpauinfo \
+  egl-gbm egl-wayland \
+  opencl-nvidia \
+  cuda
 ```
 
 3. Finally, verify after install:
@@ -183,6 +189,15 @@ vainfo
 vdpauinfo
 # Check OpenCL (for AMD, need rocm-opencl-runtime)
 clinfo
+# NVIDIA specific
+nvidia-smi
+```
+
+4. For NVIDIA + Wayland, you'll also want kernel params:
+
+```bash
+# /etc/modprobe.d/nvidia.conf
+options nvidia_drm modeset=1 fbdev=1
 ```
 
 ## Yet another Yogurt - An AUR Helper written in Go
