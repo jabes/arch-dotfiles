@@ -2,75 +2,75 @@
 
 ```bash
 sudo pacman -Syu \
-    arch-audit \
-    ark \
-    base \
-    base-devel \
-    bat \
-    bat-extras \
-    bmon \
-    btop \
-    chezmoi \
-    cpufetch \
-    cronie \
-    ctop \
-    curl \
-    diff-so-fancy \
-    direnv \
-    docker \
-    docker-buildx \
-    docker-compose \
-    dog \
-    duf \
-    eza \
-    fastfetch \
-    fd \
-    ffmpeg \
-    fwupd \
-    fzf \
-    git \
-    github-cli \
-    glances \
-    gnupg \
-    htop \
-    hwinfo \
-    iftop \
-    inxi \
-    iotop \
-    jq \
-    lazydocker \
-    lazygit \
-    less \
-    man-db \
-    man-pages \
-    mediainfo \
-    mpv \
-    nmap \
-    nvm \
-    nvtop \
-    nyancat \
-    openssh \
-    openvpn \
-    pacman-contrib \
-    partitionmanager \
-    power-profiles-daemon \
-    pyenv \
-    qmk \
-    reflector \
-    rust \
-    smartmontools \
-    solaar \
-    sops \
-    spectacle \
-    sysstat \
-    tcpdump \
-    ttf-ibm-plex \
-    ufw \
-    usbutils \
-    vim \
-    wget \
-    xclip \
-    zsh
+    arch-audit \              # security vulnerability scanner
+    ark \                     # archive manager (KDE)
+    base \                    # essential arch packages
+    base-devel \              # compilation/build tools
+    bat \                     # cat with syntax highlighting
+    bat-extras \              # additional bat utilities
+    bmon \                    # bandwidth monitor
+    btop \                    # resource monitor (better top)
+    chezmoi \                 # dotfile manager
+    cpufetch \                # CPU info display
+    cronie \                  # cron daemon
+    ctop \                    # container top
+    curl \                    # HTTP client
+    diff-so-fancy \           # prettier git diffs
+    direnv \                  # per-directory env vars
+    docker \                  # container platform
+    docker-buildx \           # docker build plugin
+    docker-compose \          # multi-container orchestration
+    dog \                     # DNS lookup tool
+    duf \                     # disk usage viewer
+    eza \                     # modern ls replacement
+    fastfetch \               # system info display
+    fd \                      # find alternative
+    ffmpeg \                  # media encoder/converter
+    fwupd \                   # firmware updater
+    fzf \                     # fuzzy finder
+    git \                     # version control
+    github-cli \              # GitHub CLI tool
+    glances \                 # system monitor
+    gnupg \                   # encryption/signing
+    htop \                    # process viewer
+    hwinfo \                  # hardware info tool
+    iftop \                   # network bandwidth monitor
+    inxi \                    # system information
+    iotop \                   # disk I/O monitor
+    jq \                      # JSON processor
+    lazydocker \              # docker TUI
+    lazygit \                 # git TUI
+    less \                    # file pager
+    man-db \                  # manual page database
+    man-pages \               # linux manual pages
+    mediainfo \               # media file analyzer
+    mpv \                     # media player
+    nmap \                    # network scanner
+    nvm \                     # node version manager
+    nvtop \                   # GPU monitor
+    nyancat \                 # nyan cat in terminal
+    openssh \                 # SSH client/server
+    openvpn \                 # VPN client
+    pacman-contrib \          # pacman helper scripts
+    partitionmanager \        # partition editor (KDE)
+    power-profiles-daemon \   # power management
+    pyenv \                   # python version manager
+    qmk \                     # keyboard firmware tools
+    reflector \               # mirrorlist updater
+    rust \                    # rust compiler/tools
+    smartmontools \           # disk health monitoring
+    solaar \                  # logitech device manager
+    sops \                    # secrets encryption
+    spectacle \               # screenshot tool (KDE)
+    sysstat \                 # system statistics
+    tcpdump \                 # packet analyzer
+    ttf-ibm-plex \            # IBM Plex font family
+    ufw \                     # firewall manager
+    usbutils \                # USB device utilities
+    vim \                     # text editor
+    wget \                    # file downloader
+    xclip \                   # clipboard manager
+    zsh                       # shell
 ```
 
 ## Yet another Yogurt - An AUR Helper written in Go
