@@ -1,8 +1,7 @@
-## Install required packages
+## Install System Packages
 
 ```bash
 # arch-audit              | security vulnerability scanner
-# ark                     | archive manager (KDE)
 # base                    | essential arch packages
 # base-devel              | compilation/build tools
 # bat                     | cat with syntax highlighting
@@ -53,7 +52,6 @@
 # openssh                 | SSH client/server
 # openvpn                 | VPN client
 # pacman-contrib          | pacman helper scripts
-# partitionmanager        | partition editor (KDE)
 # power-profiles-daemon   | power management
 # pyenv                   | python version manager
 # qmk                     | keyboard firmware tools
@@ -64,7 +62,6 @@
 # smartmontools           | disk health monitoring
 # solaar                  | logitech device manager
 # sops                    | secrets encryption
-# spectacle               | screenshot tool (KDE)
 # sysstat                 | system statistics
 # tcpdump                 | packet analyzer
 # tldr                    | simplified man pages
@@ -78,6 +75,36 @@
 # zsh                     | shell
 
 sudo pacman -Syu arch-audit ark base base-devel bat bat-extras bmon btop chezmoi cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inxi iotop jq lazydocker lazygit less man-db man-pages mediainfo mpv ncdu nmap nvm nvtop nyancat openssh openvpn pacman-contrib partitionmanager power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rust smartmontools solaar sops spectacle sysstat tcpdump tldr ttf-ibm-plex ufw usbutils vim wget xclip zoxide zsh
+```
+
+## KDE Applications
+
+```bash
+# ark                  : Archive/compression file manager
+# bluedevil            : Bluetooth device manager
+# cameractrls          : Camera configuration utility
+# celluloid            : GTK frontend for mpv media player
+# chromium             : Open-source web browser
+# dolphin              : KDE file manager
+# elisa                : Music player
+# filelight            : Disk usage visualization
+# firefox              : Web browser
+# gwenview             : Image viewer
+# kalarm               : Alarm and reminder scheduler
+# kate                 : Advanced text editor
+# kcalc                : Calculator
+# kclock               : Clock, timer, and stopwatch
+# kdeconnect           : Device integration (phone sync)
+# kompare              : File diff/comparison tool
+# konsole              : Terminal emulator
+# kweather             : Weather application
+# meld                 : Visual diff and merge tool
+# mpv                  : Minimalist media player
+# okular               : Universal document viewer (PDF, etc.)
+# partitionmanager     : Disk partition editor
+# spectacle            : Screenshot capture tool
+
+sudo pacman -Syu ark bluedevil cameractrls celluloid chromium dolphin elisa filelight firefox gwenview kalarm kate kcalc kclock kdeconnect kompare konsole kweather meld mpv okular partitionmanager spectacle
 ```
 
 ## Yet another Yogurt - An AUR Helper written in Go
