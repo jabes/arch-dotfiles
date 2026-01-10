@@ -40,6 +40,7 @@
 # lazydocker              | docker TUI
 # lazygit                 | git TUI
 # less                    | file pager
+# logrotate               | log rotation utility
 # man-db                  | manual page database
 # man-pages               | linux manual pages
 # mediainfo               | media file analyzer
@@ -75,7 +76,7 @@
 # zoxide                  | smart cd command
 # zsh                     | shell
 
-sudo pacman -Syu arch-audit base base-devel bat bat-extras bmon btop chezmoi cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inxi iotop jq lazydocker lazygit less man-db man-pages mediainfo ncdu nmap nvm nvtop nyancat openssh openvpn pacman-contrib pipewire power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rust smartmontools solaar sops sysstat tcpdump tldr ttf-ibm-plex ufw usbutils vim wget wireplumber xclip zoxide zsh
+sudo pacman -Syu arch-audit base base-devel bat bat-extras bmon btop chezmoi cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inxi iotop jq lazydocker lazygit less logrotate man-db man-pages mediainfo ncdu nmap nvm nvtop nyancat openssh openvpn pacman-contrib pipewire power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rust smartmontools solaar sops sysstat tcpdump tldr ttf-ibm-plex ufw usbutils vim wget wireplumber xclip zoxide zsh
 ```
 
 ## KDE Applications
@@ -534,6 +535,7 @@ sudo systemctl restart systemd-journald
 
 ```bash
 sudo systemctl enable --now fstrim.timer
+sudo systemctl enable --now logrotate.timer
 sudo systemctl enable --now cronie
 sudo systemctl enable --now sysstat
 sudo systemctl enable --now piavpn
