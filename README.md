@@ -25,6 +25,7 @@ sudo pacman -Syu \
     hwinfo \
     iftop \
     inxi \
+    iotop \
     jq \
     lazydocker \
     lazygit \
@@ -43,6 +44,7 @@ sudo pacman -Syu \
     qmk \
     reflector \
     rust \
+    smartmontools \
     solaar \
     sops \
     spectacle \
@@ -389,6 +391,13 @@ EOF
 
 # Apply changes
 sudo systemctl restart systemd-journald
+```
+
+## Additional services to enable
+
+```bash
+sudo systemctl enable --now fstrim.timer
+sudo systemctl enable --now cronie
 ```
 
 ## Update keyboard firmware
