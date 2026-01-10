@@ -48,6 +48,12 @@ if command -v pyenv &>/dev/null; then
     eval "$(pyenv virtualenv-init -)"
 fi
 
+# Load and unload environment variables depending on the current directory
+eval "$(direnv hook zsh)"
+
+# A smarter cd command
+eval "$(zoxide init zsh)"
+
 # Node version manager
 [[ -s "/usr/share/nvm/init-nvm.sh" ]] && source "/usr/share/nvm/init-nvm.sh"
 
