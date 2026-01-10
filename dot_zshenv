@@ -31,11 +31,8 @@ export TZ="America/Toronto"
 # Set environment variables
 export EDITOR='vim'
 export VISUAL='vim'
-export TERMINAL='kitty'
+export TERMINAL='konsole'
 export BROWSER='firefox'
-
-# Ensure applications know which terminal type is being used
-# export TERM="xterm-kitty"
 
 # Node version manager
 export NVM_DIR="$HOME/.nvm"
