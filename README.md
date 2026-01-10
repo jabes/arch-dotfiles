@@ -550,6 +550,21 @@ piactl disconnect
 piactl get connectionstate
 ```
 
+## Antivirus
+
+Clam AntiVirus is an open source (GPL) anti-virus toolkit for UNIX.
+It provides a number of utilities including a flexible and scalable multi-threaded daemon, a command line scanner and advanced tool for automatic database updates.
+
+```bash
+# Install
+sudo pacman -S clamav
+# Update virus definitions
+sudo freshclam
+# Enable and start daemon
+sudo systemctl enable --now clamav-daemon
+sudo systemctl enable --now clamav-freshclam
+```
+
 ## Linux Vendor Firmware Service
 
 A system daemon to allow session software to update firmware.
