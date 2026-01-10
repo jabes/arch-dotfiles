@@ -108,13 +108,78 @@ sudo pacman -Syu arch-audit base base-devel bat bat-extras bmon btop chezmoi cpu
 sudo pacman -Syu ark bluedevil cameractrls celluloid chromium dolphin elisa filelight firefox gwenview kalarm kate kcalc kclock kdeconnect kompare konsole kweather meld mpv okular partitionmanager spectacle
 ```
 
-## Graphics Drivers
+## Microcode
+
+https://wiki.archlinux.org/title/Microcode
+
+1. Install based on your CPU:
+
+```bash
+# Auto-detect and install correct microcode
+grep -q "GenuineIntel" /proc/cpuinfo && sudo pacman -S intel-ucode
+grep -q "AuthenticAMD" /proc/cpuinfo && sudo pacman -S amd-ucode
+```
+
+2. After installation:
+
+```bash
+# Regenerate bootloader config
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+# Or if using systemd-boot
+sudo bootctl update
+# Then reboot and check dmesg
+sudo dmesg | grep microcode
+```
+
+## Graphics Drivers / Hardware video acceleration
+
+https://wiki.archlinux.org/title/Hardware_video_acceleration
+
+1. First, you need to enable the multilib repository for 32-bit packages:
+
+```bash
+# Edit pacman.conf
+sudo vim /etc/pacman.conf
+
+# Uncomment these two lines:
+[multilib]
+Include = /etc/pacman.d/mirrorlist
+
+# Save and update
+sudo pacman -Syu
+```
+
+2. Now install the drivers:
 
 ```bash
 # AMD
-sudo pacman -S mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon
+sudo pacman -S mesa lib32-mesa \
+  vulkan-radeon lib32-vulkan-radeon \
+  vulkan-icd-loader lib32-vulkan-icd-loader \
+  radeontop \
+  libva-mesa-driver lib32-libva-mesa-driver \
+  libva-utils vdpauinfo vulkan-tools
+
 # NVIDIA
-sudo pacman -S nvidia nvidia-utils lib32-nvidia-utils
+sudo pacman -S nvidia-open nvidia-utils lib32-nvidia-utils \
+  nvidia-settings \
+  opencl-nvidia \
+  libva-nvidia-driver \
+  libva-utils vdpauinfo vulkan-tools \
+  egl-wayland
+```
+
+3. Finally, verify after install:
+
+```bash
+# Check Vulkan
+vulkaninfo --summary
+# Check VA-API (video decode)
+vainfo
+# Check VDPAU (video decode, older API)
+vdpauinfo
+# Check OpenCL (for AMD, need rocm-opencl-runtime)
+clinfo
 ```
 
 ## Yet another Yogurt - An AUR Helper written in Go
