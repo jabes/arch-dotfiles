@@ -129,6 +129,8 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 sudo bootctl update
 # Then reboot and check dmesg
 sudo dmesg | grep microcode
+# Check current microcode version
+cat /sys/devices/system/cpu/cpu0/microcode/version
 ```
 
 ## Graphics Drivers / Hardware video acceleration
