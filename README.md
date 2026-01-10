@@ -22,6 +22,7 @@ sudo pacman -Syu \
     docker-compose \          # multi-container orchestration
     dog \                     # DNS lookup tool
     duf \                     # disk usage viewer
+    dust \                    # disk usage analyzer (better du)
     eza \                     # modern ls replacement
     fastfetch \               # system info display
     fd \                      # find alternative
@@ -57,6 +58,8 @@ sudo pacman -Syu \
     pyenv \                   # python version manager
     qmk \                     # keyboard firmware tools
     reflector \               # mirrorlist updater
+    ripgrep \                 # faster grep alternative
+    ripgrep-all \             # ripgrep for PDFs/docs
     rust \                    # rust compiler/tools
     smartmontools \           # disk health monitoring
     solaar \                  # logitech device manager
@@ -64,12 +67,14 @@ sudo pacman -Syu \
     spectacle \               # screenshot tool (KDE)
     sysstat \                 # system statistics
     tcpdump \                 # packet analyzer
+    tldr \                    # simplified man pages
     ttf-ibm-plex \            # IBM Plex font family
     ufw \                     # firewall manager
     usbutils \                # USB device utilities
     vim \                     # text editor
     wget \                    # file downloader
     xclip \                   # clipboard manager
+    zoxide \                  # smart cd command
     zsh                       # shell
 ```
 
