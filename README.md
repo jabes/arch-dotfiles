@@ -172,7 +172,6 @@ sudo pacman -Syu
 # AMD
 sudo pacman -S \
   mesa lib32-mesa \
-  mesa-vdpau lib32-mesa-vdpau \
   vulkan-radeon lib32-vulkan-radeon \
   vulkan-icd-loader lib32-vulkan-icd-loader vulkan-tools \
   libva libva-utils lib32-libva \
