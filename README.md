@@ -2,8 +2,12 @@
 
 ```bash
 sudo pacman -Syu \
+    arch-audit \
     ark \
-    base base-devel \
+    base \
+    base-devel \
+    bat \
+    bat-extras \
     bmon \
     btop \
     chezmoi \
@@ -12,10 +16,17 @@ sudo pacman -Syu \
     ctop \
     curl \
     diff-so-fancy \
+    direnv \
     docker \
     docker-buildx \
     docker-compose \
+    dog \
+    duf \
+    eza \
     fastfetch \
+    fd \
+    ffmpeg \
+    fwupd \
     fzf \
     git \
     github-cli \
@@ -30,6 +41,8 @@ sudo pacman -Syu \
     lazydocker \
     lazygit \
     less \
+    man-db \
+    man-pages \
     mediainfo \
     mpv \
     nmap \
@@ -40,6 +53,7 @@ sudo pacman -Syu \
     openvpn \
     pacman-contrib \
     partitionmanager \
+    power-profiles-daemon \
     pyenv \
     qmk \
     reflector \
@@ -48,6 +62,8 @@ sudo pacman -Syu \
     solaar \
     sops \
     spectacle \
+    sysstat \
+    tcpdump \
     ttf-ibm-plex \
     ufw \
     usbutils \
@@ -72,6 +88,7 @@ A few packages to get started:
 
 ```bash
 yay -S jetbrains-toolbox
+yay -S piavpn-bin
 yay -S topgrade
 yay -S sourcegit
 ```
@@ -398,6 +415,28 @@ sudo systemctl restart systemd-journald
 ```bash
 sudo systemctl enable --now fstrim.timer
 sudo systemctl enable --now cronie
+sudo systemctl enable --now sysstat
+sudo systemctl enable --now piavpn
+```
+
+## Private Internet Access
+
+```bash
+piactl background enable
+piactl connect
+piactl disconnect
+piactl get connectionstate
+```
+
+## Linux Vendor Firmware Service
+
+A system daemon to allow session software to update firmware.
+ 
+```bash
+fwupdmgr get-devices
+fwupdmgr refresh
+fwupdmgr get-updates
+fwupdmgr update
 ```
 
 ## Update keyboard firmware
@@ -468,4 +507,12 @@ Configure, test and design in one place - VIA is the last application you'll nee
 
 ```bash
 chromium https://usevia.app
+```
+
+## Security Audit
+
+```bash
+arch-audit
+sudo lynis audit system
+sudo lynis audit dockerfile $HOME/Repos/personal/storest/Dockerfile 
 ```
