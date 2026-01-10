@@ -461,13 +461,11 @@ Configure, test and design in one place - VIA is the last application you'll nee
 5. Go to design tab and load the JSON file
 6. Go to configure tab and authorize device
 
-### VIA
+#### Note:
 
-A simple and friendly app that lets you plug in your keyboard and customize it.
+- VIA only supports browsers that have WebHID enabled...
+- Mozilla has a [negative opinion](https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API) of the api.
 
 ```bash
-# VIA only supports browsers that have WebHID enabled
-# Mozilla has a negative opinion of the api
-# https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API
 chromium https://usevia.app
 ```
