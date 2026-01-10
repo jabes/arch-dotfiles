@@ -650,7 +650,7 @@ sudo smartctl -H /dev/nvme0n1
 # Review journal size
 journalctl --disk-usage
 # Remove unused packages (orphans)
-sudo pacman -Qdtq | pacman -Rns -
+sudo pacman -Rns $(pacman -Qdtq)
 # Verify pacman database
 sudo pacman -Dk
 ```
