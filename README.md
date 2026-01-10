@@ -457,6 +457,15 @@ sudo wget -q -O /usr/share/fonts/TTF/MesloLGSNFBoldItalic.ttf https://github.com
 sudo wget -q -O /usr/share/fonts/TTF/MesloLGSNFItalic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
 ```
 
+Ensure GPU-specific environment is available for all processes
+
+```bash
+if [[ -n "$GPU_SLUG" ]]
+then cat "${HOME}/.zshenv.${GPU_SLUG}" | sed 's/^export //' | sudo tee /etc/environment
+else echo "GPU-specific environment not defined."
+fi
+```
+
 ## Node version manager
 
 ```bash
