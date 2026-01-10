@@ -45,6 +45,7 @@
 # man-pages               | linux manual pages
 # mediainfo               | media file analyzer
 # mpv                     | media player
+# ncdu                    | ncurses disk usage
 # nmap                    | network scanner
 # nvm                     | node version manager
 # nvtop                   | GPU monitor
@@ -76,7 +77,7 @@
 # zoxide                  | smart cd command
 # zsh                     | shell
 
-sudo pacman -Syu arch-audit ark base base-devel bat bat-extras bmon btop chezmoi cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inxi iotop jq lazydocker lazygit less man-db man-pages mediainfo mpv nmap nvm nvtop nyancat openssh openvpn pacman-contrib partitionmanager power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rust smartmontools solaar sops spectacle sysstat tcpdump tldr ttf-ibm-plex ufw usbutils vim wget xclip zoxide zsh
+sudo pacman -Syu arch-audit ark base base-devel bat bat-extras bmon btop chezmoi cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inxi iotop jq lazydocker lazygit less man-db man-pages mediainfo mpv ncdu nmap nvm nvtop nyancat openssh openvpn pacman-contrib partitionmanager power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rust smartmontools solaar sops spectacle sysstat tcpdump tldr ttf-ibm-plex ufw usbutils vim wget xclip zoxide zsh
 ```
 
 ## Yet another Yogurt - An AUR Helper written in Go
@@ -139,7 +140,6 @@ locale
 # Enable UFW
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
-sudo ufw allow ssh
 sudo ufw allow from 172.17.0.0/16 comment 'Docker'
 sudo ufw allow from 192.168.0.0/16 to any port 11434 proto tcp comment 'Ollama'
 sudo ufw allow from 192.168.0.0/16 to any port 8188 proto tcp comment 'ComfyUI'
