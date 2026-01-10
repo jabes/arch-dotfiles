@@ -41,6 +41,7 @@
 # lazygit                 | git TUI
 # less                    | file pager
 # logrotate               | log rotation utility
+# lynis                   | security auditing tool
 # man-db                  | manual page database
 # man-pages               | linux manual pages
 # mediainfo               | media file analyzer
@@ -48,7 +49,6 @@
 # nmap                    | network scanner
 # nvm                     | node version manager
 # nvtop                   | GPU monitor
-# nyancat                 | nyan cat in terminal
 # openssh                 | SSH client/server
 # openvpn                 | VPN client
 # pacman-contrib          | pacman helper scripts
@@ -76,35 +76,49 @@
 # zoxide                  | smart cd command
 # zsh                     | shell
 
-sudo pacman -Syu arch-audit base base-devel bat bat-extras bmon btop chezmoi cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inxi iotop jq lazydocker lazygit less logrotate man-db man-pages mediainfo ncdu nmap nvm nvtop nyancat openssh openvpn pacman-contrib pipewire power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rust smartmontools solaar sops sysstat tcpdump tldr ttf-ibm-plex ufw usbutils vim wget wireplumber xclip zoxide zsh
+sudo pacman -Syu arch-audit base base-devel bat bat-extras bmon btop chezmoi cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inxi iotop jq lazydocker lazygit less logrotate lynis man-db man-pages mediainfo ncdu nmap nvm nvtop openssh openvpn pacman-contrib pipewire power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rust smartmontools solaar sops sysstat tcpdump tldr ttf-ibm-plex ufw usbutils vim wget wireplumber xclip zoxide zsh
+```
+
+## Fun stuff
+
+```bash
+# cmatrix                 | matrix digital rain
+# asciiquarium            | ASCII aquarium animation
+# cava                    | audio visualizer
+# cowsay                  | talking cow ASCII art
+# fortune-mod             | random quotes/fortunes
+# lolcat                  | rainbow text colorizer
+# nyancat                 | nyan cat animation
+
+sudo pacman -S cmatrix asciiquarium cava cowsay fortune-mod lolcat nyancat
 ```
 
 ## KDE Applications
 
 ```bash
-# ark                  : Archive/compression file manager
-# bluedevil            : Bluetooth device manager
-# cameractrls          : Camera configuration utility
-# celluloid            : GTK frontend for mpv media player
-# chromium             : Open-source web browser
-# dolphin              : KDE file manager
-# elisa                : Music player
-# filelight            : Disk usage visualization
-# firefox              : Web browser
-# gwenview             : Image viewer
-# kalarm               : Alarm and reminder scheduler
-# kate                 : Advanced text editor
-# kcalc                : Calculator
-# kclock               : Clock, timer, and stopwatch
-# kdeconnect           : Device integration (phone sync)
-# kompare              : File diff/comparison tool
-# konsole              : Terminal emulator
-# kweather             : Weather application
-# meld                 : Visual diff and merge tool
-# mpv                  : Minimalist media player
-# okular               : Universal document viewer (PDF, etc.)
-# partitionmanager     : Disk partition editor
-# spectacle            : Screenshot capture tool
+# ark                     | Archive/compression file manager
+# bluedevil               | Bluetooth device manager
+# cameractrls             | Camera configuration utility
+# celluloid               | GTK frontend for mpv media player
+# chromium                | Open-source web browser
+# dolphin                 | KDE file manager
+# elisa                   | Music player
+# filelight               | Disk usage visualization
+# firefox                 | Web browser
+# gwenview                | Image viewer
+# kalarm                  | Alarm and reminder scheduler
+# kate                    | Advanced text editor
+# kcalc                   | Calculator
+# kclock                  | Clock, timer, and stopwatch
+# kdeconnect              | Device integration (phone sync)
+# kompare                 | File diff/comparison tool
+# konsole                 | Terminal emulator
+# kweather                | Weather application
+# meld                    | Visual diff and merge tool
+# mpv                     | Minimalist media player
+# okular                  | Universal document viewer (PDF, etc.)
+# partitionmanager        | Disk partition editor
+# spectacle               | Screenshot capture tool
 
 sudo pacman -Syu ark bluedevil cameractrls celluloid chromium dolphin elisa filelight firefox gwenview kalarm kate kcalc kclock kdeconnect kompare konsole kweather meld mpv okular partitionmanager spectacle
 ```
