@@ -556,8 +556,10 @@ Clam AntiVirus is an open source (GPL) anti-virus toolkit for UNIX.
 It provides a number of utilities including a flexible and scalable multi-threaded daemon, a command line scanner and advanced tool for automatic database updates.
 
 ```bash
-# Install
+# Install ClamAV
 sudo pacman -S clamav
+# Graphical front-end for ClamAV 
+sudo pacman -S clamtk
 # Update virus definitions
 sudo freshclam
 # Enable and start daemon
