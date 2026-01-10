@@ -268,6 +268,14 @@ localectl list-locales
 locale
 ```
 
+## Set hostname
+
+```bash
+HOST="archbox" # or whatever
+sudo hostnamectl set-hostname $HOST
+echo "127.0.1.1 $HOST" | sudo tee -a /etc/hosts
+```
+
 ## Firewall configuration
 
 ```bash
