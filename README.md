@@ -237,6 +237,8 @@ user_pref("widget.use-xdg-desktop-portal.mime-handler", 1);
 user_pref("media.rdd-ffmpeg.enabled", true);
 // Enable AV1 codec (RTX 30+, RX 6000+, Intel 11th+ have hardware decode)
 user_pref("media.av1.enabled", true);
+// GPU-accelerated 2D canvas rendering
+user_pref("gfx.canvas.accelerated", true);
 EOF
 ```
 
