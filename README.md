@@ -461,7 +461,9 @@ Configure, test and design in one place - VIA is the last application you'll nee
 5. Go to design tab and load the JSON file
 6. Go to configure tab and authorize device
 
-### VIA is a simple and friendly app that lets you plug in your keyboard and customize it
+### VIA
+
+A simple and friendly app that lets you plug in your keyboard and customize it.
 
 ```bash
 # VIA only supports browsers that have WebHID enabled
