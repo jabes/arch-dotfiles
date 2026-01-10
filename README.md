@@ -214,6 +214,32 @@ nvidia-smi
 options nvidia_drm modeset=1 fbdev=1
 ```
 
+5. Ensure Firefox is using hardware acceleration (Wayland + VA-API):
+
+```bash
+cd ~/.mozilla/firefox/*.default-release
+cat > user.js <<'EOF'
+# GPU-accelerated rendering engine (replaces legacy compositor)
+user_pref("gfx.webrender.all", true);
+# Enable VA-API video decode via FFmpeg
+user_pref("media.ffmpeg.vaapi.enabled", true);
+# Master switch for hardware video decoding
+user_pref("media.hardware-video-decoding.enabled", true);
+# Enable DMA-BUF for zero-copy GPU buffer sharing (Wayland)
+user_pref("widget.dmabuf.force-enabled", true);
+# Run compositor in separate GPU process
+user_pref("layers.gpu-process.enabled", true);
+# Use native KDE/GNOME file picker instead of Firefox's GTK one
+user_pref("widget.use-xdg-desktop-portal.file-picker", 1);
+# Use native app associations for opening files
+user_pref("widget.use-xdg-desktop-portal.mime-handler", 1);
+# Allow FFmpeg in the RDD (Remote Data Decoder) process
+user_pref("media.rdd-ffmpeg.enabled", true);
+# Enable AV1 codec (RTX 30+, RX 6000+, Intel 11th+ have hardware decode)
+user_pref("media.av1.enabled", true);
+EOF
+```
+
 ## Yet another Yogurt - An AUR Helper written in Go
 
 The initial installation of yay can be done by cloning the PKGBUILD and building with makepkg:
