@@ -43,7 +43,6 @@
 # man-db                  | manual page database
 # man-pages               | linux manual pages
 # mediainfo               | media file analyzer
-# mpv                     | media player
 # ncdu                    | ncurses disk usage
 # nmap                    | network scanner
 # nvm                     | node version manager
@@ -74,7 +73,7 @@
 # zoxide                  | smart cd command
 # zsh                     | shell
 
-sudo pacman -Syu arch-audit ark base base-devel bat bat-extras bmon btop chezmoi cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inxi iotop jq lazydocker lazygit less man-db man-pages mediainfo mpv ncdu nmap nvm nvtop nyancat openssh openvpn pacman-contrib partitionmanager power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rust smartmontools solaar sops spectacle sysstat tcpdump tldr ttf-ibm-plex ufw usbutils vim wget xclip zoxide zsh
+sudo pacman -Syu arch-audit base base-devel bat bat-extras bmon btop chezmoi cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inxi iotop jq lazydocker lazygit less man-db man-pages mediainfo ncdu nmap nvm nvtop nyancat openssh openvpn pacman-contrib power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rust smartmontools solaar sops sysstat tcpdump tldr ttf-ibm-plex ufw usbutils vim wget xclip zoxide zsh
 ```
 
 ## KDE Applications
