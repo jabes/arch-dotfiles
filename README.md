@@ -106,6 +106,15 @@ sudo pacman -Syu arch-audit base base-devel bat bat-extras bmon btop chezmoi cpu
 sudo pacman -Syu ark bluedevil cameractrls celluloid chromium dolphin elisa filelight firefox gwenview kalarm kate kcalc kclock kdeconnect kompare konsole kweather meld mpv okular partitionmanager spectacle
 ```
 
+## Graphics Drivers
+
+```bash
+# AMD
+sudo pacman -S mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon
+# NVIDIA
+sudo pacman -S nvidia nvidia-utils lib32-nvidia-utils
+```
+
 ## Yet another Yogurt - An AUR Helper written in Go
 
 The initial installation of yay can be done by cloning the PKGBUILD and building with makepkg:
@@ -294,10 +303,20 @@ git config -f ~/.gitconfig-work core.sshCommand "ssh -i ~/.ssh/id_ed25519_base1"
 Manage your dotfiles across multiple diverse machines, securely.
 
 ```bash
-# Initialize
+# Setup the source directory and update the destination directory to match the target state
 chezmoi init git@github.com:jabes/arch-dotfiles.git
-# Apply dotfiles
+# Pull and apply any changes
+chezmoi update
+# Update the destination directory to match the target state
 chezmoi apply
+# Print the diff between the target state and the destination state
+chezmoi diff
+# Re-add modified files
+chezmoi re-add
+# Show the status of targets
+chezmoi status
+# Exit with success if the destination state matches the target state, fail otherwise
+chezmoi verify
 ```
 
 ## Define LS_COLORS
@@ -544,7 +563,25 @@ chromium https://usevia.app
 ## Security Audit
 
 ```bash
-arch-audit
 sudo lynis audit system
 sudo lynis audit dockerfile $HOME/Repos/personal/storest/Dockerfile 
+```
+
+## Regular Maintenance Tasks
+
+```bash
+# Update everything, remove old packages
+topgrade --cleanup --yes
+# Check for security issues
+arch-audit
+# Review failed services
+systemctl --failed
+# Check disk health
+sudo smartctl -H /dev/nvme0n1
+# Review journal size
+journalctl --disk-usage
+# Remove unused packages (orphans)
+pacman -Qdtq | pacman -Rns -
+# Verify pacman database
+sudo pacman -Dk
 ```
