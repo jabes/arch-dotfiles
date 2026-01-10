@@ -51,6 +51,7 @@
 # openssh                 | SSH client/server
 # openvpn                 | VPN client
 # pacman-contrib          | pacman helper scripts
+# pipewire                | modern audio server
 # power-profiles-daemon   | power management
 # pyenv                   | python version manager
 # qmk                     | keyboard firmware tools
@@ -69,11 +70,12 @@
 # usbutils                | USB device utilities
 # vim                     | text editor
 # wget                    | file downloader
+# wireplumber             | pipewire session manager
 # xclip                   | clipboard manager
 # zoxide                  | smart cd command
 # zsh                     | shell
 
-sudo pacman -Syu arch-audit base base-devel bat bat-extras bmon btop chezmoi cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inxi iotop jq lazydocker lazygit less man-db man-pages mediainfo ncdu nmap nvm nvtop nyancat openssh openvpn pacman-contrib power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rust smartmontools solaar sops sysstat tcpdump tldr ttf-ibm-plex ufw usbutils vim wget xclip zoxide zsh
+sudo pacman -Syu arch-audit base base-devel bat bat-extras bmon btop chezmoi cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inxi iotop jq lazydocker lazygit less man-db man-pages mediainfo ncdu nmap nvm nvtop nyancat openssh openvpn pacman-contrib pipewire power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rust smartmontools solaar sops sysstat tcpdump tldr ttf-ibm-plex ufw usbutils vim wget wireplumber xclip zoxide zsh
 ```
 
 ## KDE Applications
