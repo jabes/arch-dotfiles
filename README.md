@@ -263,22 +263,41 @@ yay -S sourcegit
 
 ## Reflector
 
-Reflector is a Python script which can:
+Reflector retrieves the latest Arch mirror list, filters by criteria, and sorts by speed.
 
-1. Retrieve the latest mirror list
-2. Filter the most up-to-date mirrors
-3. Sort them by speed
+1. Enable weekly automatic mirror updates:
 
 ```bash
-## Configure fastest mirrors
-sudo reflector \
-  --country Canada \
-  --age 12 \
-  --protocol https \
-  --sort rate \
-  --save /etc/pacman.d/mirrorlist
-# Enable automatic mirror updates (weekly)
 sudo systemctl enable reflector.timer
+```
+
+2. Configure mirror selection:
+
+```bash
+sudo tee /etc/xdg/reflector/reflector.conf <<'EOF'
+--country Canada
+--age 12
+--protocol https
+--sort rate
+--latest 10
+--number 5
+--save /etc/pacman.d/mirrorlist
+EOF
+```
+
+3. Ensure service waits for network before running:
+
+```bash
+sudo systemctl enable NetworkManager-wait-online.service
+sudo mkdir -p /etc/systemd/system/reflector.service.d
+sudo tee /etc/systemd/system/reflector.service.d/override.conf <<'EOF'
+[Unit]
+Description=Refresh Pacman mirrorlist with Reflector.
+Documentation=https://wiki.archlinux.org/index.php/Reflector
+Wants=network-online.target
+After=network-online.target nss-lookup.target
+EOF
+sudo systemctl daemon-reload
 ```
 
 ## Generating locales
