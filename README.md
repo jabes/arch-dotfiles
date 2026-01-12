@@ -671,6 +671,16 @@ fwupdmgr get-updates
 fwupdmgr update
 ```
 
+https://github.com/fwupd/fwupd/wiki/PluginFlag:capsules-unsupported
+
+```bash
+sudo tee /etc/fwupd/fwupd.conf <<'EOF'
+[fwupd]
+DisabledPlugins=test;test_ble;invalid;bios
+EOF
+sudo systemctl restart fwupd.service
+```
+
 ## Update keyboard firmware
 
 - https://docs.qmk.fm/newbs_getting_started
