@@ -332,6 +332,9 @@ sudo ufw default allow outgoing
 sudo ufw allow from 172.17.0.0/16 comment 'Docker'
 sudo ufw allow from 192.168.0.0/16 to any port 11434 proto tcp comment 'Ollama'
 sudo ufw allow from 192.168.0.0/16 to any port 8188 proto tcp comment 'ComfyUI'
+sudo ufw allow 1714:1764/tcp comment 'KDEConnect'
+sudo ufw allow 1714:1764/udp comment 'KDEConnect'
+sudo ufw reload
 # Enable firewall
 sudo ufw enable
 sudo systemctl enable ufw
