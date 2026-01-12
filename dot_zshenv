@@ -44,7 +44,7 @@ export QMK_HOME="$HOME/qmk_firmware"
 # Python version management
 export PYENV_COLOR=0
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/shims:$PATH"
+export PYENV_SHELL="zsh"
 
 # Add custom scripts directory
 export PATH="$HOME/bin:$PATH"

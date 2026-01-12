@@ -42,8 +42,8 @@ if ! ssh-add -l &>/dev/null
 then find "$HOME/.ssh" -type f -name 'id_*' ! -name '*.pub' -exec ssh-add {} \; &>/dev/null
 fi
 
-# Simple Python version management
-if command -v pyenv &>/dev/null; then
+# Only init pyenv in interactive shells, not for system stuff
+if [[ -n "$PS1" ]]; then
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 fi
