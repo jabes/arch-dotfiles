@@ -365,6 +365,8 @@ pyenv versions
 To create a virtualenv for the Python version used with pyenv, run pyenv virtualenv, specifying the Python version you want and the name of the virtualenv directory.
 
 ```bash
+git clone https://github.com/pyenv/pyenv-doctor.git $PYENV_ROOT/plugins/pyenv-doctor
+git clone https://github.com/pyenv/pyenv-update.git $PYENV_ROOT/plugins/pyenv-update
 git clone https://github.com/yyuu/pyenv-virtualenv.git $PYENV_ROOT/plugins/pyenv-virtualenv
 pyenv virtualenv 3.11.14 my-virtual-env-3.11.14
 pyenv virtualenvs
