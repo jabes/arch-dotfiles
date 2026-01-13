@@ -5,7 +5,7 @@
 export NVD_LOG=1                                # Used to control logging. 1 to log to stdout, anything else to append to the given file
 export NVD_BACKEND=direct                       # Controls which backend this library uses. Either egl, or direct (default)
 export LIBVA_DRIVER_NAME=nvidia                 # Force VA-API to use nvidia-vaapi-driver (no auto-detection)
-export LIBVA_MESSAGING_LEVEL=1                  # Configure increasing logging verbosity to stdout (0, 1, 2)
+export LIBVA_MESSAGING_LEVEL=0                  # Configure increasing logging verbosity to stdout (0, 1, 2)
 # =============================================================================
 # NVIDIA Wayland
 # =============================================================================
