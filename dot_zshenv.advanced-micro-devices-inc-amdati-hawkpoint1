@@ -1,7 +1,16 @@
-export MOZ_ENABLE_WAYLAND=1
-export MOZ_DISABLE_RDD_SANDBOX=1
-export LIBVA_DRIVER_NAME=radeonsi
-export VDPAU_DRIVER=radeonsi
-export AMD_VULKAN_ICD=RADV
-export RADV_PERFTEST=gpl
-export QT_QPA_PLATFORM=wayland
+# =============================================================================
+# VA-API / Vulkan (AMD)
+# =============================================================================
+export LIBVA_DRIVER_NAME=radeonsi               # VA-API driver (usually auto-detected)
+export VDPAU_DRIVER=radeonsi                    # VDPAU driver (legacy apps)
+export AMD_VULKAN_ICD=RADV                      # Use Mesa RADV over AMDVLK
+# =============================================================================
+# Firefox
+# =============================================================================
+export MOZ_ENABLE_WAYLAND=1                     # Run Firefox natively on Wayland
+# =============================================================================
+# Qt / KDE Wayland
+# =============================================================================
+export QT_QPA_PLATFORM=wayland                  # Use Wayland backend instead of X11
+export QT_WAYLAND_DISABLE_WINDOWDECORATION=1    # Use server-side decorations (KWin handles them)
+export QT_AUTO_SCREEN_SCALE_FACTOR=1            # Enable automatic HiDPI scaling
