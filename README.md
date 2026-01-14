@@ -452,10 +452,10 @@ git config -f ~/.gitconfig-personal core.sshCommand "ssh -i ~/.ssh/id_ed25519_pe
 ```bash
 export GIT_AUTHOR_NAME="Justin Bull"
 export GIT_AUTHOR_EMAIL="justin.bull@base1.com"
-git config -f ~/.gitconfig-work user.name "$GIT_AUTHOR_NAME"
-git config -f ~/.gitconfig-work user.email "$GIT_AUTHOR_EMAIL"
-git config -f ~/.gitconfig-work user.signingkey "$(gpg --list-secret-keys --keyid-format=long $GIT_AUTHOR_EMAIL | grep sec | awk '{print $2}' | cut -d'/' -f2)"
-git config -f ~/.gitconfig-work core.sshCommand "ssh -i ~/.ssh/id_ed25519_base1"
+git config -f ~/.gitconfig-base1 user.name "$GIT_AUTHOR_NAME"
+git config -f ~/.gitconfig-base1 user.email "$GIT_AUTHOR_EMAIL"
+git config -f ~/.gitconfig-base1 user.signingkey "$(gpg --list-secret-keys --keyid-format=long $GIT_AUTHOR_EMAIL | grep sec | awk '{print $2}' | cut -d'/' -f2)"
+git config -f ~/.gitconfig-base1 core.sshCommand "ssh -i ~/.ssh/id_ed25519_base1"
 ```
 
 ## Chezmoi
