@@ -240,6 +240,12 @@ user_pref("media.rdd-ffmpeg.enabled", true);
 user_pref("media.av1.enabled", true);
 // GPU-accelerated 2D canvas rendering
 user_pref("gfx.canvas.accelerated", true);
+// WebRTC: use platform decoder for VP8/VP9
+user_pref("media.navigator.mediadatadecoder_vpx_enabled", true);
+// WebRTC: hardware-accelerated VP8 decoding
+user_pref("media.navigator.mediadatadecoder_vp8_hardware_enabled", true);
+// WebRTC: prefer VP9 for better quality/compression
+user_pref("media.peerconnection.video.vp9_preferred", true);
 EOF
 ```
 
