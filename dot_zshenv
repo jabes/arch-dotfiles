@@ -46,6 +46,11 @@ export PYENV_COLOR=0
 export PYENV_ROOT="$HOME/.pyenv"
 export PYENV_SHELL="zsh"
 
+# Python global
+export PYTHONUTF8=1
+export PYTHONPYCACHEPREFIX="$HOME/.cache/pycache"
+export PIP_REQUIRE_VIRTUALENV=1
+
 # Add custom scripts directory
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
