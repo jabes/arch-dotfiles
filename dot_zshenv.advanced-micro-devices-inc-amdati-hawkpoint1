@@ -11,6 +11,6 @@ export MOZ_ENABLE_WAYLAND=1                     # Run Firefox natively on Waylan
 # =============================================================================
 # Qt / KDE Wayland
 # =============================================================================
-export QT_QPA_PLATFORM=wayland                  # Use Wayland backend instead of X11
+export QT_QPA_PLATFORM="wayland;xcb"            # Use Wayland backend if available, otherwise fallback to XCB (X11)
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1    # Use server-side decorations (KWin handles them)
 export QT_AUTO_SCREEN_SCALE_FACTOR=1            # Enable automatic HiDPI scaling
