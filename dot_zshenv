@@ -54,6 +54,7 @@ export PIP_REQUIRE_VIRTUALENV=1
 # Add custom scripts directory
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.opencode/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 
 # Ollama - Get up and running with large language models.
