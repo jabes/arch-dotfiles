@@ -389,9 +389,11 @@ https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generati
 ```bash
 ssh-keygen -t ed25519 -C "bull.justin@gmail.com" -f ~/.ssh/id_ed25519_personal -N ""
 ssh-keygen -t ed25519 -C "justin.bull@base1.com" -f ~/.ssh/id_ed25519_base1 -N ""
+ssh-keygen -t rsa -b 4096 -C "c_jbullx@costco.com" -f ~/.ssh/id_rsa_costco_azure -N ""
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519_personal
 ssh-add ~/.ssh/id_ed25519_base1
+ssh-add ~/.ssh/id_rsa_costco_azure
 ```
 
 ## Add SSH keys to GitHub
@@ -462,6 +464,16 @@ git config -f ~/.gitconfig-base1 user.name "$GIT_AUTHOR_NAME"
 git config -f ~/.gitconfig-base1 user.email "$GIT_AUTHOR_EMAIL"
 git config -f ~/.gitconfig-base1 user.signingkey "$(gpg --list-secret-keys --keyid-format=long $GIT_AUTHOR_EMAIL | grep sec | awk '{print $2}' | cut -d'/' -f2)"
 git config -f ~/.gitconfig-base1 core.sshCommand "ssh -i ~/.ssh/id_ed25519_base1"
+```
+
+```bash
+export GIT_AUTHOR_NAME="Justin Bull"
+export GIT_AUTHOR_EMAIL="c_jbullx@costco.com"
+git config -f ~/.gitconfig-costco user.name "$GIT_AUTHOR_NAME"
+git config -f ~/.gitconfig-costco user.email "$GIT_AUTHOR_EMAIL"
+git config -f ~/.gitconfig-costco core.sshCommand "ssh -i ~/.ssh/id_rsa_costco_azure"
+git config -f ~/.gitconfig-costco commit.gpgsign false
+git config -f ~/.gitconfig-costco tag.gpgSign false
 ```
 
 ## Chezmoi
