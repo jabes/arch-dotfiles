@@ -387,9 +387,9 @@ pyenv uninstall my-virtual-env-3.11.14
 https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
 ```bash
-ssh-keygen -t ed25519 -C "bull.justin@gmail.com" -f ~/.ssh/id_ed25519_personal -N ""
-ssh-keygen -t ed25519 -C "justin.bull@base1.com" -f ~/.ssh/id_ed25519_base1 -N ""
-ssh-keygen -t rsa -b 4096 -C "c_jbullx@costco.com" -f ~/.ssh/id_rsa_costco_azure -N ""
+ssh-keygen -N "" -t ed25519 -C "bull.justin@gmail.com" -f ~/.ssh/id_ed25519_personal
+ssh-keygen -N "" -t ed25519 -C "justin.bull@base1.com" -f ~/.ssh/id_ed25519_base1
+ssh-keygen -N "" -t rsa -b 4096 -C "c_jbullx@costco.com" -f ~/.ssh/id_rsa_costco_azure
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519_personal
 ssh-add ~/.ssh/id_ed25519_base1
