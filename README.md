@@ -510,6 +510,29 @@ atuin login -u justin -p pass123
 atuin sync
 ```
 
+https://docs.atuin.sh/cli/configuration/config/
+
+```bash
+sudo tee /etc/xdg/reflector/reflector.conf <<'EOF'
+auto_sync = true
+update_check = true
+sync_address = "https://atuin.0x123.dev"
+sync_frequency = "10m"
+enter_accept = true
+secrets_filter = true
+filter_mode = "global"
+search_mode = "daemon-fuzzy"
+exit_mode = "return-original"
+
+[sync]
+records = true
+
+[daemon]
+enabled = true
+autostart = true
+EOF
+```
+
 ## Define LS_COLORS
 
 This is a collection of extension:color mappings, suitable to use as your LS_COLORS environment variable.
