@@ -72,7 +72,9 @@ alias ls="eza --all --group-directories-first --sort=name --icons"
 alias ll="eza --all --classify --long --group-directories-first --sort=name --time-style=long-iso --icons --git"
 alias upgrade="script --quiet --command 'topgrade --cleanup --yes' /dev/null"
 alias sysinfo="fastfetch --logo none --pipe --percent-type 3 --structure OS:Host:Kernel:Uptime:Packages:DE:WM:Shell:Terminal:CPU:GPU:Memory:Disk:Battery"
-alias scratch="zeditor $(mktemp ~/scratch/scratch-XXXXXX)"
+
+# Functions
+scratch() { zeditor "$(mktemp ~/scratch/scratch-XXXXXX)" }
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
