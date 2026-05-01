@@ -503,6 +503,11 @@ https://docs.atuin.sh/cli/guide/installation/
 
 ```bash
 curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+source ~/.zshenv
+source ~/.zshrc
+atuin register -u justin -e bull.justin@gmail.com -p pass123
+atuin login -u justin -p pass123
+atuin sync
 ```
 
 ## Define LS_COLORS
