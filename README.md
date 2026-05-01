@@ -520,6 +520,7 @@ sync_address = "https://atuin.0x123.dev"
 sync_frequency = "10m"
 enter_accept = true
 secrets_filter = true
+show_preview = true
 filter_mode = "global"
 search_mode = "daemon-fuzzy"
 exit_mode = "return-original"
