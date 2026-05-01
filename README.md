@@ -510,7 +510,7 @@ source ~/.zshrc
 https://docs.atuin.sh/cli/configuration/config/
 
 ```bash
-tee $HOME/.config/atuin/config.toml <<'EOF'
+tee ~/.config/atuin/config.toml <<'EOF'
 auto_sync = true
 update_check = true
 sync_address = "https://atuin.0x123.dev"
