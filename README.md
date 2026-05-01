@@ -497,6 +497,14 @@ chezmoi status
 chezmoi verify
 ```
 
+## Install Atuin binary
+
+https://docs.atuin.sh/cli/guide/installation/
+
+```bash
+curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+```
+
 ## Define LS_COLORS
 
 This is a collection of extension:color mappings, suitable to use as your LS_COLORS environment variable.
