@@ -534,7 +534,6 @@ EOF
 https://docs.atuin.sh/cli/guide/sync/
 
 ```bash
-atuin register -u justin -e bull.justin@gmail.com -p pass123
 atuin login -u justin -p pass123
 atuin sync
 ```
