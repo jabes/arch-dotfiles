@@ -73,6 +73,7 @@ alias ll="eza --all --classify --long --group-directories-first --sort=name --ti
 alias upgrade="script --quiet --command 'topgrade --cleanup --yes' /dev/null"
 alias sysinfo="fastfetch --logo none --pipe --percent-type 3 --structure OS:Host:Kernel:Uptime:Packages:DE:WM:Shell:Terminal:CPU:GPU:Memory:Disk:Battery"
 alias zed="zeditor"
+alias cd="z"
 
 # Functions
 scratch() {
