@@ -139,10 +139,9 @@ grep -q "AuthenticAMD" /proc/cpuinfo && sudo pacman -S amd-ucode
 2. After installation:
 
 ```bash
-# Regenerate bootloader config
+# GRUB only - regenerate config to include microcode initrd
+# systemd-boot picks up microcode automatically, no action needed
 sudo grub-mkconfig -o /boot/grub/grub.cfg
-# Or if using systemd-boot
-sudo bootctl update
 # Then reboot and check dmesg
 sudo dmesg | grep microcode
 # Check current microcode version
@@ -247,6 +246,42 @@ user_pref("media.navigator.mediadatadecoder_vp8_hardware_enabled", true);
 // WebRTC: prefer VP9 for better quality/compression
 user_pref("media.peerconnection.video.vp9_preferred", true);
 EOF
+```
+
+## Power Profile
+
+Arch defaults to `balanced` which uses conservative `balance_performance` EPP on AMD pstate, significantly throttling CPU boost behavior. Set to `performance` for full clock speeds:
+
+```bash
+# Check current profile and EPP
+powerprofilesctl get
+cat /sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference
+
+# Set to performance (persists across reboots via power-profiles-daemon)
+powerprofilesctl set performance
+
+# Verify AMD pstate is active
+cat /sys/devices/system/cpu/amd_pstate/status
+```
+
+## PCIe ASPM
+ 
+Set PCIe Active State Power Management to `performance` to eliminate L1 link latency on NVMe and GPU:
+ 
+```bash
+# Check current policy (brackets = active)
+cat /sys/module/pcie_aspm/parameters/policy
+```
+ 
+Add `pcie_aspm=performance` to kernel parameters in your bootloader entry:
+ 
+```bash
+# /boot/loader/entries/arch.conf (systemd-boot)
+options root=... rw pcie_aspm=performance
+ 
+# /etc/default/grub (GRUB)
+GRUB_CMDLINE_LINUX_DEFAULT="... quiet pcie_aspm=performance ..."
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 ## AUR Helper
