@@ -265,23 +265,70 @@ cat /sys/devices/system/cpu/amd_pstate/status
 ```
 
 ## PCIe ASPM
- 
-Set PCIe Active State Power Management to `performance` to eliminate L1 link latency on NVMe and GPU:
- 
+
+https://wiki.archlinux.org/title/Power_management
+
+Set PCIe Active State Power Management to `performance` to eliminate L1 link latency on NVMe and GPU.
+
 ```bash
 # Check current policy (brackets = active)
 cat /sys/module/pcie_aspm/parameters/policy
 ```
- 
-Add `pcie_aspm=performance` to kernel parameters in your bootloader entry:
- 
+
+Persist across reboots via tmpfiles.d:
+
 ```bash
-# /boot/loader/entries/arch.conf (systemd-boot)
-options root=... rw pcie_aspm=performance
- 
-# /etc/default/grub (GRUB)
-GRUB_CMDLINE_LINUX_DEFAULT="... quiet pcie_aspm=performance ..."
-sudo grub-mkconfig -o /boot/grub/grub.cfg
+sudo tee /etc/tmpfiles.d/pcie-aspm.conf <<'EOF'
+w /sys/module/pcie_aspm/parameters/policy - - - - performance
+EOF
+
+# Apply immediately without rebooting
+sudo systemd-tmpfiles --create /etc/tmpfiles.d/pcie-aspm.conf
+
+# Verify
+cat /sys/module/pcie_aspm/parameters/policy
+# Should show: default [performance] powersave powersupersave
+```
+
+## DNS
+
+Use systemd-resolved for split DNS support.
+This is required for Tailscale MagicDNS to resolve `*.ts.net` hostnames while keeping your normal DNS chain (AdGuard → Unbound → Cloudflare) intact:
+
+```bash
+# Enable systemd-resolved
+sudo systemctl enable --now systemd-resolved
+
+# Point resolv.conf at the resolved stub
+sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
+
+# Tell NetworkManager to use systemd-resolved instead of dnsmasq
+sudo tee /etc/NetworkManager/conf.d/dns.conf <<'EOF'
+[main]
+dns=systemd-resolved
+EOF
+
+# Restart services
+sudo systemctl restart NetworkManager
+sudo systemctl restart tailscaled
+
+# Verify split DNS is configured
+resolvectl status tailscale0
+
+# Test MagicDNS
+dig truenas.tail91bccc.ts.net
+
+# Test normal DNS still works
+dig google.com
+```
+
+## Tailscale
+
+```bash
+sudo systemctl enable --now tailscaled
+sudo tailscale set --operator=$USER
+tailscale up
+tailscale status
 ```
 
 ## AUR Helper
