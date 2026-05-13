@@ -120,6 +120,7 @@ sudo pacman -S cmatrix asciiquarium cava cowsay fortune-mod lolcat nyancat
 # kdeconnect              | Device integration (phone sync)
 # kompare                 | File diff/comparison tool
 # konsole                 | Terminal emulator
+# ktailctl                | Tailscale GUI client
 # kweather                | Weather application
 # meld                    | Visual diff and merge tool
 # mpv                     | Minimalist media player
@@ -127,7 +128,7 @@ sudo pacman -S cmatrix asciiquarium cava cowsay fortune-mod lolcat nyancat
 # partitionmanager        | Disk partition editor
 # spectacle               | Screenshot capture tool
 
-sudo pacman -Syu ark bluedevil cameractrls celluloid chromium dolphin elisa filelight firefox gwenview kalarm kate kcalc kclock kdeconnect kompare konsole kweather meld mpv okular partitionmanager spectacle
+sudo pacman -Syu ark bluedevil cameractrls celluloid chromium dolphin elisa filelight firefox gwenview kalarm kate kcalc kclock kdeconnect kompare konsole ktailctl kweather meld mpv okular partitionmanager spectacle
 ```
 
 ## Microcode
