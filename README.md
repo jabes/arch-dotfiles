@@ -300,7 +300,7 @@ cat /sys/module/pcie_aspm/parameters/policy
 ## DNS
 
 Use systemd-resolved for split DNS support.
-This is required for Tailscale MagicDNS to resolve `*.ts.net` hostnames while keeping your normal DNS chain (AdGuard → Unbound → Cloudflare) intact:
+This is required for Tailscale MagicDNS to resolve `*.ts.net` hostnames while keeping your normal DNS chain (AdGuard > Unbound > Cloudflare) intact.
 
 ```bash
 # Enable systemd-resolved
@@ -326,6 +326,9 @@ resolvectl status tailscale0
 
 # Test MagicDNS
 dig truenas.tail91bccc.ts.net
+
+# Test local DNS resolution
+dig truenas.home.arpa
 
 # Test normal DNS still works
 dig google.com
