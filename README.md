@@ -35,6 +35,7 @@
 # htop                    | process viewer
 # hwinfo                  | hardware info tool
 # iftop                   | network bandwidth monitor
+# inetutils               | hostname, traceroute, ftp
 # inxi                    | system information
 # iotop                   | disk I/O monitor
 # jq                      | JSON processor
@@ -42,6 +43,7 @@
 # lazygit                 | git TUI
 # less                    | file pager
 # logrotate               | log rotation utility
+# lsof                    | list open files/sockets
 # lynis                   | security auditing tool
 # man-db                  | manual page database
 # man-pages               | linux manual pages
@@ -60,15 +62,19 @@
 # reflector               | mirrorlist updater
 # ripgrep                 | faster grep alternative
 # ripgrep-all             | ripgrep for PDFs/docs
+# rsync                   | file sync/transfer
 # rust                    | rust compiler/tools
 # smartmontools           | disk health monitoring
 # solaar                  | logitech device manager
 # sops                    | secrets encryption
+# strace                  | system call tracer
 # sysstat                 | system statistics
+# tailscale               | mesh VPN
 # tcpdump                 | packet analyzer
 # tldr                    | simplified man pages
 # ttf-ibm-plex            | IBM Plex font family
 # ufw                     | firewall manager
+# unzip                   | ZIP archive extraction
 # usbutils                | USB device utilities
 # vim                     | text editor
 # wget                    | file downloader
@@ -77,7 +83,7 @@
 # zoxide                  | smart cd command
 # zsh                     | shell
 
-sudo pacman -Syu arch-audit base base-devel bat bat-extras bmon btop chezmoi cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog dosfstools duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inxi iotop jq lazydocker lazygit less logrotate lynis man-db man-pages mediainfo ncdu nmap nvm nvtop openssh openvpn pacman-contrib pipewire power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rust smartmontools solaar sops sysstat tcpdump tldr ttf-ibm-plex ufw usbutils vim wget wireplumber xclip zoxide zsh
+sudo pacman -Syu arch-audit base base-devel bat bat-extras bmon btop chezmoi cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog dosfstools duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inetutils inxi iotop jq lazydocker lazygit less logrotate lsof lynis man-db man-pages mediainfo ncdu nmap nvm nvtop openssh openvpn pacman-contrib pipewire power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rsync rust smartmontools solaar sops strace sysstat tailscale tcpdump tldr ttf-ibm-plex ufw unzip usbutils vim wget wireplumber xclip zoxide zsh
 ```
 
 ## Fun stuff
@@ -329,6 +335,63 @@ sudo systemctl enable --now tailscaled
 sudo tailscale set --operator=$USER
 tailscale up
 tailscale status
+```
+
+## Inotify
+
+Increase the default inotify watch limit for large projects and IDEs:
+
+```bash
+sudo tee /etc/sysctl.d/90-inotify.conf <<'EOF'
+fs.inotify.max_user_watches = 524288
+fs.inotify.max_user_instances = 1024
+EOF
+sudo sysctl --system
+```
+
+## SSH Hardening
+
+```bash
+sudo tee /etc/ssh/sshd_config.d/99-hardening.conf <<'EOF'
+PasswordAuthentication no
+PermitRootLogin no
+AuthenticationMethods publickey
+X11Forwarding no
+MaxAuthTries 3
+EOF
+sudo systemctl restart sshd
+```
+
+## Baszel Agent
+
+```bash
+# Authenticate with the hub
+TOKEN=$(curl -s -X POST "https://beszel.0x123.dev/api/collections/_superusers/auth-with-password" \
+  -H "Content-Type: application/json" \
+  -d '{"identity":"bull.justin@gmail.com","password":"******************"}' | jq -r '.token')
+# Get user ID
+USER_ID=$(curl -s "https://beszel.0x123.dev/api/collections/users/records" \
+  -H "Authorization: $TOKEN" | jq -r '.items[].id')
+# Get SSH public key for agent
+SSH_KEY=$(curl -s "https://beszel.0x123.dev/api/beszel/getkey" \
+  -H "Authorization: $TOKEN" | jq -r '.key')
+# Register this system with the hub
+curl -s -X POST "https://beszel.0x123.dev/api/collections/systems/records" \
+  -H "Authorization: $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d "$(jq -cnM \
+    --arg name "$(hostname)" \
+    --arg host "$(tailscale ip -4)" \
+    --argjson port 45876 \
+    --arg user "$USER_ID" \
+    '{name: $name, host: $host, port: $port, users: [$user]}')"
+# Install and start the agent
+curl -sL https://get.beszel.dev -o /tmp/install-agent.sh && \
+  chmod +x /tmp/install-agent.sh && \
+  /tmp/install-agent.sh -p 45876 \
+    -k "${SSH_KEY}" \
+    -url "https://beszel.0x123.dev" \
+    --auto-update
 ```
 
 ## AUR Helper
