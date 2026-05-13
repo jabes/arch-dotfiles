@@ -362,7 +362,7 @@ EOF
 sudo systemctl restart sshd
 ```
 
-## Baszel Agent
+## Beszel Agent
 
 ```bash
 # Define hub URL
