@@ -371,49 +371,52 @@ https://beszel.dev/guide/agent-installation
 ```bash
 # Define hub URL
 HUB_URL="https://beszel.0x123.dev"
-
+# Prompt for password (silent input, no shell history)
+read -s "BESZEL_PASS?Beszel admin password: " && echo
 # Authenticate with the hub
-TOKEN=$(curl -s -X POST "$HUB_URL/api/collections/_superusers/auth-with-password" \
-  -H "Content-Type: application/json" \
-  -d '{"identity":"bull.justin@gmail.com","password":"******************"}' \
-  | jq -r '.token')
-echo "TOKEN: $TOKEN"
-
-# Get user ID
-USER_ID=$(curl -s "$HUB_URL/api/collections/users/records?filter=(email='bull.justin@gmail.com')" \
-  -H "Authorization: $TOKEN" \
-  | jq -r '.items[0].id')
-echo "USER_ID: $USER_ID"
-
+AUTH_TOKEN=$(curl -s -X POST "$HUB_URL/api/collections/_superusers/auth-with-password" -H "Content-Type: application/json" -d '{"identity":"bull.justin@gmail.com","password":"$BESZEL_PASS"}' | jq -r '.token')
 # Get SSH public key for agent
-SSH_KEY=$(curl -s "$HUB_URL/api/beszel/getkey" \
-  -H "Authorization: $TOKEN" \
-  | jq -r '.key')
-echo "SSH_KEY: $SSH_KEY"
-
-# Build registration payload
-IP_ADDR="$(ip -j route get 192.168.2.1 | jq -r '.[0].prefsrc')"
-PAYLOAD="$(jq -cnM \
-  --arg name "$(hostname)" \
-  --arg host "$IP_ADDR" \
-  --argjson port 45876 \
-  --arg user "$USER_ID" \
-  '{name: $name, host: $host, port: $port, users: [$user]}')"
-echo "PAYLOAD: $PAYLOAD"
-
-# Register this system with the hub
-curl -s -X POST "$HUB_URL/api/collections/systems/records" \
-  -H "Authorization: $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d "$PAYLOAD"
-
+SSH_KEY=$(curl -s "$HUB_URL/api/beszel/getkey" -H "Authorization: $AUTH_TOKEN" | jq -r '.key')
+# Get the universal agent token
+UNIVERSAL_TOKEN=$(curl -s "$HUB_URL/api/collections/universal_tokens/records" -H "Authorization: $AUTH_TOKEN" | jq -r '.items[0].token')
 # Install and start the agent
-curl -sL https://get.beszel.dev -o /tmp/install-agent.sh && \
-  chmod +x /tmp/install-agent.sh && \
-  /tmp/install-agent.sh -p 45876 \
-    -k "${SSH_KEY}" \
-    -url "$HUB_URL" \
-    --auto-update
+curl -sL https://get.beszel.dev -o /tmp/install-agent.sh && chmod +x /tmp/install-agent.sh && /tmp/install-agent.sh -p 45876 -k "$SSH_KEY" -t "$UNIVERSAL_TOKEN" -url "$HUB_URL" --auto-update
+```
+
+https://beszel.dev/guide/smart-data
+
+```bash
+# Add systemd capabilities for disk access
+sudo systemctl edit beszel-agent
+```
+
+Add under `[Service]`:
+
+```ini
+[Service]
+AmbientCapabilities=CAP_SYS_RAWIO CAP_SYS_ADMIN
+CapabilityBoundingSet=CAP_SYS_RAWIO CAP_SYS_ADMIN
+DeviceAllow=/dev/sda r
+DeviceAllow=/dev/nvme0 r
+```
+
+```bash
+# Add beszel user to disk group
+sudo usermod -aG disk beszel
+
+# Fix NVMe device permissions (default is root-only 600)
+sudo tee /etc/udev/rules.d/99-smartctl-disk-group.rules > /dev/null << 'EOF'
+KERNEL=="nvme[0-9]*", GROUP="disk", MODE="0660"
+EOF
+
+# Apply changes
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+sudo systemctl daemon-reload
+sudo systemctl restart beszel-agent
+
+# Verify
+ls -l /dev/nvme0
 ```
 
 ## AUR Helper
