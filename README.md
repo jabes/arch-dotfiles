@@ -338,27 +338,23 @@ tailscale up
 tailscale status
 ```
 
-## Inotify
-
-Increase the default inotify watch limit for large projects and IDEs:
-
-```bash
-sudo tee /etc/sysctl.d/90-inotify.conf <<'EOF'
-fs.inotify.max_user_watches = 524288
-fs.inotify.max_user_instances = 1024
-EOF
-sudo sysctl --system
-```
-
 ## SSH Hardening
+
+https://linuxize.com/post/ssh-hardening-best-practices/
 
 ```bash
 sudo tee /etc/ssh/sshd_config.d/99-hardening.conf <<'EOF'
-PasswordAuthentication no
-PermitRootLogin no
-AuthenticationMethods publickey
-X11Forwarding no
-MaxAuthTries 3
+PasswordAuthentication          no      # Force key-based authentication
+KbdInteractiveAuthentication    no      # Disable keyboard-interactive password prompts
+PermitRootLogin                 no      # Disable root SSH login
+PermitEmptyPasswords            no      # Block empty passwords
+LoginGraceTime                  30      # Shorten the authentication window
+MaxAuthTries                    3       # Limit failed login attempts
+X11Forwarding                   no      # Disable X11 forwarding
+AllowAgentForwarding            no      # Disable agent forwarding
+AllowTcpForwarding              no      # Disable SSH tunnels for users who do not need them
+ClientAliveInterval             300     # Set idle timeout interval
+ClientAliveCountMax             2       # Disconnect after 2 missed keep-alives
 EOF
 sudo systemctl restart sshd
 ```
