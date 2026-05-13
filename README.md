@@ -365,18 +365,20 @@ sudo systemctl restart sshd
 ## Baszel Agent
 
 ```bash
+# Define hub URL
+HUB_URL="https://beszel.0x123.dev"
 # Authenticate with the hub
-TOKEN=$(curl -s -X POST "https://beszel.0x123.dev/api/collections/_superusers/auth-with-password" \
+TOKEN=$(curl -s -X POST "$HUB_URL/api/collections/_superusers/auth-with-password" \
   -H "Content-Type: application/json" \
   -d '{"identity":"bull.justin@gmail.com","password":"******************"}' | jq -r '.token')
 # Get user ID
-USER_ID=$(curl -s "https://beszel.0x123.dev/api/collections/users/records" \
-  -H "Authorization: $TOKEN" | jq -r '.items[].id')
+USER_ID=$(curl -s "$HUB_URL/api/collections/users/records?filter=(email='bull.justin@gmail.com')" \
+  -H "Authorization: $TOKEN" | jq -r '.items[0].id')
 # Get SSH public key for agent
-SSH_KEY=$(curl -s "https://beszel.0x123.dev/api/beszel/getkey" \
+SSH_KEY=$(curl -s "$HUB_URL/api/beszel/getkey" \
   -H "Authorization: $TOKEN" | jq -r '.key')
 # Register this system with the hub
-curl -s -X POST "https://beszel.0x123.dev/api/collections/systems/records" \
+curl -s -X POST "$HUB_URL/api/collections/systems/records" \
   -H "Authorization: $TOKEN" \
   -H "Content-Type: application/json" \
   -d "$(jq -cnM \
@@ -390,7 +392,7 @@ curl -sL https://get.beszel.dev -o /tmp/install-agent.sh && \
   chmod +x /tmp/install-agent.sh && \
   /tmp/install-agent.sh -p 45876 \
     -k "${SSH_KEY}" \
-    -url "https://beszel.0x123.dev" \
+    -url "$HUB_URL" \
     --auto-update
 ```
 
