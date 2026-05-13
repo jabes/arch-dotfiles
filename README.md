@@ -371,26 +371,42 @@ https://beszel.dev/guide/agent-installation
 ```bash
 # Define hub URL
 HUB_URL="https://beszel.0x123.dev"
+
 # Authenticate with the hub
 TOKEN=$(curl -s -X POST "$HUB_URL/api/collections/_superusers/auth-with-password" \
   -H "Content-Type: application/json" \
-  -d '{"identity":"bull.justin@gmail.com","password":"******************"}' | jq -r '.token')
+  -d '{"identity":"bull.justin@gmail.com","password":"******************"}' \
+  | jq -r '.token')
+echo "TOKEN: $TOKEN"
+
 # Get user ID
 USER_ID=$(curl -s "$HUB_URL/api/collections/users/records?filter=(email='bull.justin@gmail.com')" \
-  -H "Authorization: $TOKEN" | jq -r '.items[0].id')
+  -H "Authorization: $TOKEN" \
+  | jq -r '.items[0].id')
+echo "USER_ID: $USER_ID"
+
 # Get SSH public key for agent
 SSH_KEY=$(curl -s "$HUB_URL/api/beszel/getkey" \
-  -H "Authorization: $TOKEN" | jq -r '.key')
+  -H "Authorization: $TOKEN" \
+  | jq -r '.key')
+echo "SSH_KEY: $SSH_KEY"
+
+# Build registration payload
+IP_ADDR="$(ip -j route get 192.168.2.1 | jq -r '.[0].prefsrc')"
+PAYLOAD="$(jq -cnM \
+  --arg name "$(hostname)" \
+  --arg host "$IP_ADDR" \
+  --argjson port 45876 \
+  --arg user "$USER_ID" \
+  '{name: $name, host: $host, port: $port, users: [$user]}')"
+echo "PAYLOAD: $PAYLOAD"
+
 # Register this system with the hub
 curl -s -X POST "$HUB_URL/api/collections/systems/records" \
   -H "Authorization: $TOKEN" \
   -H "Content-Type: application/json" \
-  -d "$(jq -cnM \
-    --arg name "$(hostname)" \
-    --arg host "$(tailscale ip -4)" \
-    --argjson port 45876 \
-    --arg user "$USER_ID" \
-    '{name: $name, host: $host, port: $port, users: [$user]}')"
+  -d "$PAYLOAD"
+
 # Install and start the agent
 curl -sL https://get.beszel.dev -o /tmp/install-agent.sh && \
   chmod +x /tmp/install-agent.sh && \
