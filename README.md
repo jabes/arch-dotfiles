@@ -371,10 +371,12 @@ https://beszel.dev/guide/agent-installation
 ```bash
 # Define hub URL
 HUB_URL="https://beszel.0x123.dev"
+IDENTITY="bull.justin@gmail.com"
 # Prompt for password (silent input, no shell history)
 read -s "BESZEL_PASS?Beszel admin password: " && echo
 # Authenticate with the hub
-AUTH_TOKEN=$(curl -s -X POST "$HUB_URL/api/collections/_superusers/auth-with-password" -H "Content-Type: application/json" -d '{"identity":"bull.justin@gmail.com","password":"$BESZEL_PASS"}' | jq -r '.token')
+AUTH_PAYLOAD="$(jq -cnM --arg identity "$IDENTITY" --arg password "$BESZEL_PASS" '{identity: $identity, password: $password}')"
+AUTH_TOKEN=$(curl -s -X POST "$HUB_URL/api/collections/_superusers/auth-with-password" -H "Content-Type: application/json" -d "$AUTH_PAYLOAD" | jq -r '.token')
 # Get SSH public key for agent
 SSH_KEY=$(curl -s "$HUB_URL/api/beszel/getkey" -H "Authorization: $AUTH_TOKEN" | jq -r '.key')
 # Get the universal agent token
