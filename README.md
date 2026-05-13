@@ -307,12 +307,14 @@ This is required for Tailscale MagicDNS to resolve `*.ts.net` hostnames while ke
 sudo systemctl enable --now systemd-resolved
 
 # Point resolv.conf at the resolved stub
+sudo rm /etc/resolv.conf
 sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
 # Tell NetworkManager to use systemd-resolved instead of dnsmasq
 sudo tee /etc/NetworkManager/conf.d/dns.conf <<'EOF'
 [main]
 dns=systemd-resolved
+rc-manager=unmanaged
 EOF
 
 # Restart services
@@ -333,7 +335,7 @@ dig google.com
 
 ```bash
 sudo systemctl enable --now tailscaled
-sudo tailscale set --operator=$USER
+sudo tailscale set --operator=$USER --accept-dns=true
 tailscale up
 tailscale status
 ```
