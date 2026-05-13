@@ -365,6 +365,8 @@ sudo systemctl restart sshd
 
 ## Beszel Agent
 
+https://beszel.dev/guide/agent-installation
+
 ```bash
 # Define hub URL
 HUB_URL="https://beszel.0x123.dev"
