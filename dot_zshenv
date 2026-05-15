@@ -34,6 +34,9 @@ export VISUAL='vim'
 export TERMINAL='konsole'
 export BROWSER='firefox'
 
+# Node options
+export NODE_OPTIONS="--max-old-space-size=4096 --no-deprecation --no-warnings"
+
 # Node version manager
 export NVM_DIR="$HOME/.nvm"
 
