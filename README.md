@@ -7,6 +7,7 @@
 # base-devel              | compilation/build tools
 # bat                     | cat with syntax highlighting
 # bat-extras              | additional bat utilities
+# bitwarden-cli           | Bitwarden password manager CLI
 # bmon                    | bandwidth monitor
 # btop                    | resource monitor (better top)
 # chezmoi                 | dotfile manager
@@ -85,7 +86,7 @@
 # zoxide                  | smart cd command
 # zsh                     | shell
 
-sudo pacman -Syu age arch-audit base base-devel bat bat-extras bmon btop chezmoi cifs-utils cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog dosfstools duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inetutils inxi iotop jq lazydocker lazygit less logrotate lsof lynis man-db man-pages mediainfo ncdu nmap nvm nvtop openssh openvpn pacman-contrib pipewire power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rsync rust smartmontools solaar sops strace sysstat tailscale tcpdump tldr ttf-ibm-plex ufw unzip usbutils vim wget wireplumber xclip zoxide zsh
+sudo pacman -Syu age arch-audit base base-devel bat bat-extras bitwarden-cli bmon btop chezmoi cifs-utils cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog dosfstools duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inetutils inxi iotop jq lazydocker lazygit less logrotate lsof lynis man-db man-pages mediainfo ncdu nmap nvm nvtop openssh openvpn pacman-contrib pipewire power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rsync rust smartmontools solaar sops strace sysstat tailscale tcpdump tldr ttf-ibm-plex ufw unzip usbutils vim wget wireplumber xclip zoxide zsh
 ```
 
 ## Fun stuff
@@ -715,19 +716,57 @@ git config -f ~/.gitconfig-costco tag.gpgSign false
 
 ## Chezmoi
 
-Manage your dotfiles across multiple diverse machines, securely.
+Generate new age key
 
 ```bash
 # Generate an age key
 age-keygen -o ~/.config/chezmoi/key.txt
-KEY="$(age-keygen -y  ~/.config/chezmoi/key.txt)"
+# Set permissions
+chmod 600 ~/.config/chezmoi/key.txt
 # Create encryption config
+PUBKEY="$(age-keygen -y  ~/.config/chezmoi/key.txt)"
 tee ~/.config/chezmoi/chezmoi.toml << EOF
 encryption = "age"
 [age]
   identity = "~/.config/chezmoi/key.txt"
-  recipient = "$KEY"
+  recipient = "$PUBKEY"
 EOF
+# Add key to vault
+bw login
+export BW_SESSION="$(bw unlock --raw)"
+bw get template item | jq \
+  --arg name "chezmoi-age-key" \
+  --arg notes "$(cat ~/.config/chezmoi/key.txt)" \
+  '.type = 2 | .secureNote = {"type": 0} | .name = $name | .notes = $notes' \
+  | bw encode | bw create item
+```
+
+Pull existing key from vault
+
+```bash
+# Login and unlock
+bw login
+export BW_SESSION="$(bw unlock --raw)"
+# Pull the key down
+bw get notes "chezmoi-age-key" > ~/.config/chezmoi/key.txt
+# Set permissions
+chmod 600 ~/.config/chezmoi/key.txt
+# Just being careful okay
+bw lock
+unset BW_SESSION
+# Create encryption config
+PUBKEY="$(age-keygen -y  ~/.config/chezmoi/key.txt)"
+tee ~/.config/chezmoi/chezmoi.toml << EOF
+encryption = "age"
+[age]
+  identity = "~/.config/chezmoi/key.txt"
+  recipient = "$PUBKEY"
+EOF
+```
+
+Manage your dotfiles across multiple diverse machines, securely.
+
+```bash
 # Setup the source directory and update the destination directory to match the target state
 chezmoi init git@github.com:jabes/arch-dotfiles.git
 # Pull and apply any changes
