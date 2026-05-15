@@ -1,6 +1,7 @@
 ## Install System Packages
 
 ```bash
+# age                     | modern file encryption tool
 # arch-audit              | security vulnerability scanner
 # base                    | essential arch packages
 # base-devel              | compilation/build tools
@@ -9,6 +10,7 @@
 # bmon                    | bandwidth monitor
 # btop                    | resource monitor (better top)
 # chezmoi                 | dotfile manager
+# cifs-utils              | SMB/CIFS mount utilities
 # cpufetch                | CPU info display
 # cronie                  | cron daemon
 # ctop                    | container top
@@ -83,7 +85,7 @@
 # zoxide                  | smart cd command
 # zsh                     | shell
 
-sudo pacman -Syu arch-audit base base-devel bat bat-extras bmon btop chezmoi cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog dosfstools duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inetutils inxi iotop jq lazydocker lazygit less logrotate lsof lynis man-db man-pages mediainfo ncdu nmap nvm nvtop openssh openvpn pacman-contrib pipewire power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rsync rust smartmontools solaar sops strace sysstat tailscale tcpdump tldr ttf-ibm-plex ufw unzip usbutils vim wget wireplumber xclip zoxide zsh
+sudo pacman -Syu age arch-audit base base-devel bat bat-extras bmon btop chezmoi cifs-utils cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog dosfstools duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inetutils inxi iotop jq lazydocker lazygit less logrotate lsof lynis man-db man-pages mediainfo ncdu nmap nvm nvtop openssh openvpn pacman-contrib pipewire power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rsync rust smartmontools solaar sops strace sysstat tailscale tcpdump tldr ttf-ibm-plex ufw unzip usbutils vim wget wireplumber xclip zoxide zsh
 ```
 
 ## Fun stuff
@@ -502,6 +504,69 @@ sudo hostnamectl set-hostname $HOST
 echo "127.0.1.1 $HOST" | sudo tee -a /etc/hosts
 ```
 
+## CIFS Mounts
+
+1. Lock down permissions:
+
+```bash
+chmod 700 ~/.smbcreds/truenas
+chmod 600 ~/.smbcreds/truenas/alexa
+chmod 600 ~/.smbcreds/truenas/justin
+```
+
+2. Create mount directories:
+
+```bash
+sudo mkdir -p \
+  /mnt/truenas/files-justin \
+  /mnt/truenas/files-alexa-desktop \
+  /mnt/truenas/files-alexa-documents \
+  /mnt/truenas/files-alexa-drive \
+  /mnt/truenas/files-alexa-photos \
+  /mnt/truenas/media-kids-movies \
+  /mnt/truenas/media-kids-tv \
+  /mnt/truenas/media-movies \
+  /mnt/truenas/media-music \
+  /mnt/truenas/media-tv
+```
+
+3. Append the CIFS entries to `/etc/fstab`:
+
+```bash
+TRUENAS_IP="$(dig +short truenas.home.arpa)"
+TRUENAS_CREDS_DIR="$HOME/.smbcreds/truenas"
+sudo tee -a /etc/fstab << EOF
+
+# =============================================================================
+# TrueNAS CIFS Mounts
+# =============================================================================
+
+# --- Justin's files ---
+//$TRUENAS_IP/files-justin            /mnt/truenas/files-justin               cifs credentials=$TRUENAS_CREDS_DIR/justin,uid=1000,gid=1000,iocharset=utf8 0 0
+
+# --- Alexa's files ---
+//$TRUENAS_IP/files-alexa-desktop     /mnt/truenas/files-alexa-desktop        cifs credentials=$TRUENAS_CREDS_DIR/alexa,uid=1000,gid=1000,iocharset=utf8 0 0
+//$TRUENAS_IP/files-alexa-documents   /mnt/truenas/files-alexa-documents      cifs credentials=$TRUENAS_CREDS_DIR/alexa,uid=1000,gid=1000,iocharset=utf8 0 0
+//$TRUENAS_IP/files-alexa-drive       /mnt/truenas/files-alexa-drive          cifs credentials=$TRUENAS_CREDS_DIR/alexa,uid=1000,gid=1000,iocharset=utf8 0 0
+//$TRUENAS_IP/files-alexa-photos      /mnt/truenas/files-alexa-photos         cifs credentials=$TRUENAS_CREDS_DIR/alexa,uid=1000,gid=1000,iocharset=utf8 0 0
+
+# --- Media ---
+//$TRUENAS_IP/media-kids-movies       /mnt/truenas/media-kids-movies          cifs credentials=$TRUENAS_CREDS_DIR/justin,uid=1000,gid=1000,iocharset=utf8 0 0
+//$TRUENAS_IP/media-kids-tv           /mnt/truenas/media-kids-tv              cifs credentials=$TRUENAS_CREDS_DIR/justin,uid=1000,gid=1000,iocharset=utf8 0 0
+//$TRUENAS_IP/media-movies            /mnt/truenas/media-movies               cifs credentials=$TRUENAS_CREDS_DIR/justin,uid=1000,gid=1000,iocharset=utf8 0 0
+//$TRUENAS_IP/media-music             /mnt/truenas/media-music                cifs credentials=$TRUENAS_CREDS_DIR/justin,uid=1000,gid=1000,iocharset=utf8 0 0
+//$TRUENAS_IP/media-tv                /mnt/truenas/media-tv                   cifs credentials=$TRUENAS_CREDS_DIR/justin,uid=1000,gid=1000,iocharset=utf8 0 0
+
+EOF
+```
+
+4. Mount all fstab entries:
+
+```bash
+sudo systemctl daemon-reload
+sudo mount -a
+```
+
 ## Firewall configuration
 
 ```bash
@@ -653,6 +718,16 @@ git config -f ~/.gitconfig-costco tag.gpgSign false
 Manage your dotfiles across multiple diverse machines, securely.
 
 ```bash
+# Generate an age key
+age-keygen -o ~/.config/chezmoi/key.txt
+KEY="$(age-keygen -y  ~/.config/chezmoi/key.txt)"
+# Create encryption config
+tee ~/.config/chezmoi/chezmoi.toml << EOF
+encryption = "age"
+[age]
+  identity = "~/.config/chezmoi/key.txt"
+  recipient = "$KEY"
+EOF
 # Setup the source directory and update the destination directory to match the target state
 chezmoi init git@github.com:jabes/arch-dotfiles.git
 # Pull and apply any changes
