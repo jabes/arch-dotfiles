@@ -518,6 +518,7 @@ chmod 600 ~/.smbcreds/truenas/justin
 2. Create mount directories:
 
 ```bash
+# Create if not exist
 sudo mkdir -p \
   /mnt/truenas/files-justin \
   /mnt/truenas/files-alexa-desktop \
@@ -528,7 +529,8 @@ sudo mkdir -p \
   /mnt/truenas/media-kids-tv \
   /mnt/truenas/media-movies \
   /mnt/truenas/media-music \
-  /mnt/truenas/media-tv
+  /mnt/truenas/media-tv \
+  /mnt/truenas/media-roms
 ```
 
 3. Append the CIFS entries to `/etc/fstab`:
@@ -557,6 +559,7 @@ sudo tee -a /etc/fstab << EOF
 //$TRUENAS_IP/media-movies            /mnt/truenas/media-movies               cifs credentials=$TRUENAS_CREDS_DIR/justin,uid=1000,gid=1000,iocharset=utf8 0 0
 //$TRUENAS_IP/media-music             /mnt/truenas/media-music                cifs credentials=$TRUENAS_CREDS_DIR/justin,uid=1000,gid=1000,iocharset=utf8 0 0
 //$TRUENAS_IP/media-tv                /mnt/truenas/media-tv                   cifs credentials=$TRUENAS_CREDS_DIR/justin,uid=1000,gid=1000,iocharset=utf8 0 0
+//$TRUENAS_IP/media-roms              /mnt/truenas/media-roms                 cifs credentials=$TRUENAS_CREDS_DIR/justin,uid=1000,gid=1000,iocharset=utf8 0 0
 
 EOF
 ```
