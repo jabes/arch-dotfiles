@@ -78,6 +78,7 @@
 # ttf-ibm-plex            | IBM Plex font family
 # ufw                     | firewall manager
 # unzip                   | ZIP archive extraction
+# zip                     | ZIP archive creation/extraction
 # usbutils                | USB device utilities
 # vim                     | text editor
 # wget                    | file downloader
@@ -86,7 +87,7 @@
 # zoxide                  | smart cd command
 # zsh                     | shell
 
-sudo pacman -Syu age arch-audit base base-devel bat bat-extras bitwarden-cli bmon btop chezmoi cifs-utils cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog dosfstools duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inetutils inxi iotop jq lazydocker lazygit less logrotate lsof lynis man-db man-pages mediainfo ncdu nmap nvm nvtop openssh openvpn pacman-contrib pipewire power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rsync rust smartmontools solaar sops strace sysstat tailscale tcpdump tldr ttf-ibm-plex ufw unzip usbutils vim wget wireplumber xclip zoxide zsh
+sudo pacman -Syu age arch-audit base base-devel bat bat-extras bitwarden-cli bmon btop chezmoi cifs-utils cpufetch cronie ctop curl diff-so-fancy direnv docker docker-buildx docker-compose dog dosfstools duf dust eza fastfetch fd ffmpeg fwupd fzf git github-cli glances gnupg htop hwinfo iftop inetutils inxi iotop jq lazydocker lazygit less logrotate lsof lynis man-db man-pages mediainfo ncdu nmap nvm nvtop openssh openvpn pacman-contrib pipewire power-profiles-daemon pyenv qmk reflector ripgrep ripgrep-all rsync rust smartmontools solaar sops strace sysstat tailscale tcpdump tldr ttf-ibm-plex ufw unzip zip usbutils vim wget wireplumber xclip zoxide zsh
 ```
 
 ## Fun stuff
