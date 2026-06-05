@@ -142,8 +142,11 @@
 [includeIf "gitdir:~/Repos/base1/"]
     path = ~/.gitconfig-base1
 
-[includeIf "gitdir:~/Repos/costco/"]
-    path = ~/.gitconfig-costco
+[includeIf "gitdir:~/Repos/costco/azure/"]
+    path = ~/.gitconfig-costco-azure
+
+[includeIf "gitdir:~/Repos/costco/github/"]
+     path = ~/.gitconfig-costco-github
 
 [includeIf "gitdir:~/Repos/personal/"]
     path = ~/.gitconfig-personal
