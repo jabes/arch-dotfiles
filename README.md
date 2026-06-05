@@ -629,12 +629,14 @@ pyenv uninstall my-virtual-env-3.11.14
 https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
 ```bash
-ssh-keygen -N "" -t ed25519 -C "bull.justin@gmail.com" -f ~/.ssh/id_ed25519_personal
-ssh-keygen -N "" -t ed25519 -C "justin.bull@base1.com" -f ~/.ssh/id_ed25519_base1
-ssh-keygen -N "" -t rsa -b 4096 -C "c_jbullx@costco.com" -f ~/.ssh/id_rsa_costco_azure
+ssh-keygen -N "" -t ed25519 -C "bull.justin@gmail.com@$(hostname)" -f ~/.ssh/id_ed25519_personal
+ssh-keygen -N "" -t ed25519 -C "justin.bull@base1.com@$(hostname)" -f ~/.ssh/id_ed25519_base1
+ssh-keygen -N "" -t ed25519 -C "c_jbullx@costco.com@$(hostname)" -f ~/.ssh/id_ed25519_costco_github
+ssh-keygen -N "" -t rsa -b 4096 -C "c_jbullx@costco.com@$(hostname)" -f ~/.ssh/id_rsa_costco_azure
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519_personal
 ssh-add ~/.ssh/id_ed25519_base1
+ssh-add ~/.ssh/id_ed25519_costco_github
 ssh-add ~/.ssh/id_rsa_costco_azure
 ```
 
@@ -645,6 +647,8 @@ https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a
 ```bash
 cat ~/.ssh/id_ed25519_personal.pub
 cat ~/.ssh/id_ed25519_base1.pub
+cat ~/.ssh/id_ed25519_costco_github.pub
+cat ~/.ssh/id_rsa_costco_azure.pub
 ```
 
 ## Generating GPG keys
@@ -711,11 +715,21 @@ git config -f ~/.gitconfig-base1 core.sshCommand "ssh -i ~/.ssh/id_ed25519_base1
 ```bash
 export GIT_AUTHOR_NAME="Justin Bull"
 export GIT_AUTHOR_EMAIL="c_jbullx@costco.com"
-git config -f ~/.gitconfig-costco user.name "$GIT_AUTHOR_NAME"
-git config -f ~/.gitconfig-costco user.email "$GIT_AUTHOR_EMAIL"
-git config -f ~/.gitconfig-costco core.sshCommand "ssh -i ~/.ssh/id_rsa_costco_azure"
-git config -f ~/.gitconfig-costco commit.gpgsign false
-git config -f ~/.gitconfig-costco tag.gpgSign false
+git config -f ~/.gitconfig-costco-azure user.name "$GIT_AUTHOR_NAME"
+git config -f ~/.gitconfig-costco-azure user.email "$GIT_AUTHOR_EMAIL"
+git config -f ~/.gitconfig-costco-azure core.sshCommand "ssh -i ~/.ssh/id_rsa_costco_azure"
+git config -f ~/.gitconfig-costco-azure commit.gpgsign false
+git config -f ~/.gitconfig-costco-azure tag.gpgSign false
+```
+
+```bash
+export GIT_AUTHOR_NAME="Justin Bull"
+export GIT_AUTHOR_EMAIL="c_jbullx@costco.com"
+git config -f ~/.gitconfig-costco-github user.name "$GIT_AUTHOR_NAME"
+git config -f ~/.gitconfig-costco-github user.email "$GIT_AUTHOR_EMAIL"
+git config -f ~/.gitconfig-costco-github core.sshCommand "ssh -i ~/.ssh/id_ed25519_costco_github"
+git config -f ~/.gitconfig-costco-github commit.gpgsign false
+git config -f ~/.gitconfig-costco-github tag.gpgSign false
 ```
 
 ## Chezmoi
