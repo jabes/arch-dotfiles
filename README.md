@@ -549,8 +549,6 @@ sudo tee -a /etc/fstab << EOF
 //$TRUENAS_IP/files-justin            /mnt/truenas/files-justin               cifs credentials=$TRUENAS_CREDS_DIR/justin,uid=1000,gid=1000,iocharset=utf8 0 0
 
 # --- Alexa's files ---
-//$TRUENAS_IP/files-alexa-desktop     /mnt/truenas/files-alexa-desktop        cifs credentials=$TRUENAS_CREDS_DIR/alexa,uid=1000,gid=1000,iocharset=utf8 0 0
-//$TRUENAS_IP/files-alexa-documents   /mnt/truenas/files-alexa-documents      cifs credentials=$TRUENAS_CREDS_DIR/alexa,uid=1000,gid=1000,iocharset=utf8 0 0
 //$TRUENAS_IP/files-alexa-drive       /mnt/truenas/files-alexa-drive          cifs credentials=$TRUENAS_CREDS_DIR/alexa,uid=1000,gid=1000,iocharset=utf8 0 0
 //$TRUENAS_IP/files-alexa-photos      /mnt/truenas/files-alexa-photos         cifs credentials=$TRUENAS_CREDS_DIR/alexa,uid=1000,gid=1000,iocharset=utf8 0 0
 
