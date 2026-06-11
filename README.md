@@ -522,8 +522,6 @@ chmod 600 ~/.smbcreds/truenas/justin
 # Create if not exist
 sudo mkdir -p \
   /mnt/truenas/files-justin \
-  /mnt/truenas/files-alexa-desktop \
-  /mnt/truenas/files-alexa-documents \
   /mnt/truenas/files-alexa-drive \
   /mnt/truenas/files-alexa-photos \
   /mnt/truenas/media-kids-movies \
