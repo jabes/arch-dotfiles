@@ -83,7 +83,6 @@
 # vim                     | text editor
 # wget                    | file downloader
 # wireplumber             | pipewire session manager
-# xclip                   | clipboard manager
 # wl-clipboard            | Wayland clipboard (wl-copy/wl-paste)
 # zoxide                  | smart cd command
 # zsh                     | shell
