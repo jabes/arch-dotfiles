@@ -49,6 +49,14 @@ export PYENV_COLOR=0
 export PYENV_ROOT="$HOME/.pyenv"
 export PYENV_SHELL="zsh"
 
+# Composer global
+export NO_COLOR=1
+export COMPOSER_FUND=0
+export COMPOSER_NO_AUDIT=1
+export COMPOSER_NO_INTERACTION=1
+export COMPOSER_DISABLE_XDEBUG_WARN=1
+export COMPOSER_IGNORE_PLATFORM_REQS=1
+
 # Python global
 export PYTHONUTF8=1
 export PYTHONPYCACHEPREFIX="$HOME/.cache/pycache"
