@@ -28,6 +28,12 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 # Run Oh My Zsh
 source $ZSH/oh-my-zsh.sh
 
+# Increase history size
+export HISTFILE="$HOME/.zsh_history"
+export HISTSIZE=1000000000
+export SAVEHIST=1000000000
+setopt EXTENDED_HISTORY
+
 # A collection of LS_COLORS definitions
 # https://github.com/trapd00r/LS_COLORS
 source $HOME/.lscolors/lscolors.sh
